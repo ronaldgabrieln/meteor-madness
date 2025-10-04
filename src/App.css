@@ -1,1 +1,25 @@
+body {
+  background-color: #0d0149;
+  overflow: hidden;
+}
 
+h1{
+  position: fixed;
+  width: 100%;
+  user-drag: none;
+  -webkit-user-drag: none;
+  user-select: none;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  display: flex;
+justify-content: center;
+align-items: center;
+height: 80vh; 
+font-size: 12vh;
+color: #0d0149;
+font-family:'Times New Roman', Times, sans-serif;
+background-color: #ebebff;
+opacity: 0.6;
+background-size: contain;
+}
