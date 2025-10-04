@@ -97,6 +97,32 @@ button {
   font-style: Bold;
 }
 
+a{
+  
+  
+  background-position: center;
+  text-decoration: none;
+  color: rgb(241, 203, 30);
+   font-weight: 1000;
+  font-style: Bold;
+
+
+}
+upper{
+  padding: 20px 40px;
+  border-radius: 15px;
+  background-position: center;
+  text-decoration: none;
+  color: #0d0149;
+  background-color: #5d4bba;
+  font-size: 20px;
+  border: 2px solid #5d4bba;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-weight: 1000;
+  font-style: Bold;
+}
+
 button:hover {
   background-color: #4c3ba3;
   color: white;
@@ -114,23 +140,26 @@ button.startsim:hover {
   background-color: #5d4bba;
   color: white;
 }
-#defendButton:hover {
-  background-color: rgb(0,0,0,0);
+
+.tooltip-advanced {
+    position: relative;
+    display: inline-block;
+    color: #0066cc;
+    cursor: pointer;
+    font-weight: bold;
 }
 
 #about-us-div {
   opacity: 0;
   transition: opacity 0.3s ease;
-  height: fit-content;
-  width: 300px;
-  margin-top:50px;
-  text-align: center;
-  right: 45%;
-  color: #5d4bba;
-  background-color: rgb(255,255,255,1);
-  position:absolute;
-  border-radius: 10px;
-  padding: 5px 20px;
+height: fit-content;
+width: 300px;
+margin-top:50px;
+color: #5d4bba;
+background-color: rgb(255,255,255,1);
+position:absolute;
+border-radius: 10px;
+padding: 5px 20px;
 }
 
 ul {
@@ -139,15 +168,10 @@ ul {
 }
 li {
   margin: 0 50px;
-  
 }
 
 
-.about-us-text:hover ~ #about-us-div {
-  
+.about-us-text:hover #about-us-div {
 opacity: 1;
 
-}
-li:hover {
-  text-shadow: 0 0 10px white;
 }
