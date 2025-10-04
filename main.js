@@ -25,6 +25,7 @@ const light = new THREE.DirectionalLight(0xffffff, 1);
 light.position.set(5, 3, 5);
 scene.add(light);
 
+camera.rotation.z = .2343599997156;
 camera.position.z = 5;
 
 function animate() {
