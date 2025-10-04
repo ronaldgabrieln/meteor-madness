@@ -1,10 +1,5 @@
-body {
-  background-color: #0d0149;
-  overflow: hidden;
-  
-  background-image: url("backo.png");
-}
 
+<<<<<<< HEAD
 .title{
   position: fixed;
   top: 50%;
@@ -41,3 +36,5 @@ h2{
 }
 
 
+=======
+>>>>>>> 62deec8e88a53b38cf33649a578be9d23d771b73
