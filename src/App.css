@@ -7,6 +7,7 @@
 }
 * {
   font-family: 'DM Sans';
+  text-decoration: none;
 }
 #generalFlex {
   display: flex;
@@ -120,14 +121,16 @@ button.startsim:hover {
 #about-us-div {
   opacity: 0;
   transition: opacity 0.3s ease;
-height: fit-content;
-width: 300px;
-margin-top:50px;
-color: #5d4bba;
-background-color: rgb(255,255,255,1);
-position:absolute;
-border-radius: 10px;
-padding: 5px 20px;
+  height: fit-content;
+  width: 300px;
+  margin-top:50px;
+  text-align: center;
+  right: 45%;
+  color: #5d4bba;
+  background-color: rgb(255,255,255,1);
+  position:absolute;
+  border-radius: 10px;
+  padding: 5px 20px;
 }
 
 ul {
@@ -136,10 +139,15 @@ ul {
 }
 li {
   margin: 0 50px;
+  
 }
 
 
-.about-us-text:hover #about-us-div {
+.about-us-text:hover ~ #about-us-div {
+  
 opacity: 1;
 
+}
+li:hover {
+  text-shadow: 0 0 10px white;
 }
