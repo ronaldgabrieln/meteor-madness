@@ -1,5 +1,10 @@
 body
 {
-	background-color: aquamarine;
+	
 	background-image: url("backo.png");
+	background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  overflow: hidden;
+  height: 100vh;
 }
