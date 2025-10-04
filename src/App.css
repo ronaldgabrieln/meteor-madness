@@ -3,22 +3,13 @@ body {
   overflow: hidden;
 }
 
-h1{
-  position: fixed;
-  width: 100%;
-  -webkit-user-drag: none;
-  user-select: none;
-  -moz-user-select: none;
-  -webkit-user-select: none;
-  -ms-user-select: none;
-  display: flex;
-justify-content: center;
-align-items: center;
-height: 80vh; 
-font-size: 12vh;
-color: #0d0149;
-font-family:'Times New Roman', Times, sans-serif;
-background-color: #ebebff;
-opacity: 0.6;
-background-size: contain;
+.title{
+  letter-spacing: 1vh;
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%);
+  bottom: 17.5%;
+  font-size: 600%;
+  color: rgb(158, 158, 158);
+
 }
