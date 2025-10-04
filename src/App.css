@@ -71,7 +71,7 @@ body
   margin: 0;
    /* center horizontally */
    /* move to bottom */
-  background-color: #f5f5f5; /* optional */
+  background-color: #0d0149; /* optional */
 }
 
 /* container for both buttons */
@@ -99,6 +99,7 @@ button {
 button:hover {
   background-color: #4c3ba3;
   color: white;
+  box-shadow: 0 0 10px white;
 }
 
 button.startsim {
@@ -111,4 +112,26 @@ button.startsim {
 button.startsim:hover {
   background-color: #5d4bba;
   color: white;
+}
+#defendButton:hover {
+  background-color: rgb(0,0,0,0);
+}
+
+#about-us-div {
+  opacity: 0;
+  transition: opacity 0.3s ease;
+height: fit-content;
+width: 300px;
+color: #5d4bba;
+background-color: rgb(255,255,255,1);
+position:absolute;
+}
+
+#about-us-text {
+  width: fit-content;
+  height: fit-content;
+  background-color: black;
+}
+#about-us-text:hover  {
+  background-color: white;
 }
