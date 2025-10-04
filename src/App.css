@@ -1,6 +1,10 @@
 /*FONTS*/
 
 /**/
+@font-face {
+  font-family: 'Roca one';
+  src: url(/Roca\ Regular.ttf);
+}
 * {
   font-family: 'DM Sans';
 }
@@ -14,18 +18,20 @@
   display: flex;
   width:50%;
   height: 30px;
+  padding-top:30px;
   color: #ffde59;
-  padding-bottom:180px;
+  padding-bottom:150px;
   justify-content: space-evenly;
 }
 .title-container{
   text-align: center;
   background-color: rgba(189, 222, 255, 0.58);
-  padding: 2px 35px 2px 35px;
+  padding: 2px 45px 2px 45px;
   margin-bottom: 70px;
 }
 #Ttext {
   color: #1c0d6b;
+  font-family: 'Roca one';
 }
 #Stitle {
   margin-top:30px;
