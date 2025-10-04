@@ -1,21 +1,22 @@
-
-.title{
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  justify-content: center;
-
- -webkit-user-drag: none;
-  user-select: none;
-  -moz-user-select: none;
-  -webkit-user-select: none;
-  -ms-user-select: none;
-
+#generalFlex {
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+  align-items: center;
+}
+.nav-container {
+  display: flex;
+  width:50%;
+  height: 30px;
+  color: #ffde59;
+  padding-bottom:180px;
+  justify-content: space-evenly;
+}
+.title-container{
+  text-align: center;
   background-color: rgba(189, 222, 255, 0.7);
-  
-  width: 35%;
-
+  padding: 2px 35px 2px 35px;
+  margin-bottom: 70px;
 }
 
 h1{
@@ -36,4 +37,61 @@ h2{
 
 #backAsteroid {
   height: 50vh;
+  position: absolute;
+}
+
+body
+{
+	background-image: url("ete.png");
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: cover;
+	overflow: hidden;
+	height: 100vh;
+  width: 100vw;
+  margin: 0;
+   /* center horizontally */
+   /* move to bottom */
+  background-color: #f5f5f5; /* optional */
+}
+
+/* container for both buttons */
+.button-container {
+  display: flex;
+  gap: 30px;              /* space between buttons */
+  margin-bottom: 40px;    /* how far from the bottom */
+}
+
+button {
+  padding: 20px 40px;
+  border-radius: 15px;
+  background-position: center;
+  text-decoration: none;
+  color: #0d0149;
+  background-color: #5d4bba;
+  font-size: 20px;
+  border: 2px solid #5d4bba;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-family: "Times new roman", sans-serif;
+  font-weight: 1000;
+  font-style: Bold;
+}
+
+button:hover {
+  background-color: #4c3ba3;
+  color: white;
+}
+
+button.startsim {
+  background-color: transparent;
+  color: #5d4bba;
+  font-family: "Times new roman", sans-serif;
+  font-weight: 1000;
+  font-style: Bold;
+}
+
+button.startsim:hover {
+  background-color: #5d4bba;
+  color: white;
 }
