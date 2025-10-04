@@ -4,12 +4,5 @@ body {
 }
 
 .title{
-  letter-spacing: 1vh;
-  position: absolute;
-  left: 50%;
-  transform: translate(-50%);
-  bottom: 17.5%;
-  font-size: 600%;
-  color: rgb(158, 158, 158);
-
+  
 }
