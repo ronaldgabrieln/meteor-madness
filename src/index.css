@@ -1,10 +1,47 @@
 body
 {
-	
-	background-image: url("backo.png");
-	background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-  overflow: hidden;
+	background-image: url("ete.png");
+}
+body {
+  margin: 0;
   height: 100vh;
+  display: flex;
+  justify-content: center; /* center horizontally */
+  align-items: flex-end;   /* move to bottom */
+  background-color: #f5f5f5; /* optional */
+}
+
+/* container for both buttons */
+.button-container {
+  display: flex;
+  gap: 30px;              /* space between buttons */
+  margin-bottom: 40px;    /* how far from the bottom */
+}
+
+button {
+  padding: 20px 40px;
+  border-radius: 15px;
+  background-position: center;
+  text-decoration: none;
+  color: #0d0149;
+  background-color: #5d4bba;
+  font-size: 20px;
+  border: 2px solid #5d4bba;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+button:hover {
+  background-color: #4c3ba3;
+  color: white;
+}
+
+button.startsim {
+  background-color: transparent;
+  color: #5d4bba;
+}
+
+button.startsim:hover {
+  background-color: #5d4bba;
+  color: white;
 }
