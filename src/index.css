@@ -1,6 +1,12 @@
 body
 {
 	background-image: url("ete.png");
+	background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  overflow: hidden;
+  height: 100vh;
+
 }
 body {
   margin: 0;
