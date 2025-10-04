@@ -141,13 +141,6 @@ button.startsim:hover {
   color: white;
 }
 
-.tooltip-advanced {
-    position: relative;
-    display: inline-block;
-    color: #0066cc;
-    cursor: pointer;
-    font-weight: bold;
-}
 
 #about-us-div {
   opacity: 0;
@@ -168,10 +161,14 @@ ul {
 }
 li {
   margin: 0 50px;
+  transition: text-shadow 0.3s ease;
 }
 
-
-.about-us-text:hover #about-us-div {
+li:hover {
+text-shadow:  0 0 10px white;
+}
+.about-us-text:hover ~ #about-us-div {
 opacity: 1;
+right: 43%;
 
 }
