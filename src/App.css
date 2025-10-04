@@ -4,5 +4,38 @@ body {
 }
 
 .title{
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  justify-content: center;
+
+ -webkit-user-drag: none;
+  user-select: none;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+
+  background-color: rgba(189, 222, 255, 0.4);
   
+  width: 35%;
+
 }
+
+h1{
+  color: #0d0149 ;
+  font-size: 120px;
+  font-family: "Times new roman", sans-serif;
+  font-weight: 1000;
+  font-style: Bold;
+  margin-bottom: -40px;
+  margin-top: 10px;
+}
+
+h2{
+  color: #ffde59 ;
+  font-size: 30px;
+  font-family: "Time new roman", cursive;
+}
+
+
