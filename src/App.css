@@ -122,16 +122,24 @@ button.startsim:hover {
   transition: opacity 0.3s ease;
 height: fit-content;
 width: 300px;
+margin-top:50px;
 color: #5d4bba;
 background-color: rgb(255,255,255,1);
 position:absolute;
+border-radius: 10px;
+padding: 5px 20px;
 }
 
-#about-us-text {
-  width: fit-content;
-  height: fit-content;
-  background-color: black;
+ul {
+  list-style: none;
+  display: flex;
 }
-#about-us-text:hover  {
-  background-color: white;
+li {
+  margin: 0 50px;
+}
+
+
+.about-us-text:hover #about-us-div {
+opacity: 1;
+
 }
