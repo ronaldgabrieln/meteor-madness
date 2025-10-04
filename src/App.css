@@ -96,6 +96,32 @@ button {
   font-style: Bold;
 }
 
+a{
+  
+  
+  background-position: center;
+  text-decoration: none;
+  color: rgb(241, 203, 30);
+   font-weight: 1000;
+  font-style: Bold;
+
+
+}
+upper{
+  padding: 20px 40px;
+  border-radius: 15px;
+  background-position: center;
+  text-decoration: none;
+  color: #0d0149;
+  background-color: #5d4bba;
+  font-size: 20px;
+  border: 2px solid #5d4bba;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-weight: 1000;
+  font-style: Bold;
+}
+
 button:hover {
   background-color: #4c3ba3;
   color: white;
@@ -112,3 +138,41 @@ button.startsim:hover {
   background-color: #5d4bba;
   color: white;
 }
+
+.tooltip-advanced {
+    position: relative;
+    display: inline-block;
+    color: #0066cc;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.tooltip-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.7);
+    z-index: 999;
+}
+
+.tooltip-content {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+    z-index: 1000;
+    max-width: 400px;
+    text-align: center;
+}
+
+.tooltip-advanced:hover + .tooltip-overlay{
+    display: block;
+}
+
