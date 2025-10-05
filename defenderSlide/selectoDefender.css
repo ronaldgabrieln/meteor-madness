@@ -1,0 +1,84 @@
+* {
+    margin : 0;
+    overflow: hidden;
+}
+@font-face {
+  font-family: 'Roca one';
+  src: url(/public/Roca\ Regular.ttf);
+}
+
+body {
+    width: 100vw;
+    height: 90vh;
+    background-color: #0d0149;
+    
+    background-size: 80% auto;
+    background-repeat: no-repeat;
+}
+#title {
+    font-family: 'Roca one';
+    font-size: 8rem;
+    margin-top: 10px;
+    color: #ffde59;
+    text-align: center;
+}
+#back {
+    font-family: "DM Sans";
+    background-color: #19028e;
+    position: fixed;
+    left: 2%;
+    color: white;
+    box-shadow: none;
+    border: 2px solid #5d4bba;
+    width: 100px;
+    height: 40px;
+    transition: all 0.2s ease;
+    top: 10%;
+}
+#options {
+    padding: 20px 40px;
+  border-radius: 15px;
+  background-position: center;
+  text-decoration: none;
+  color: #0d0149;
+  background-color: #5d4bba;
+  font-size: 20px;
+  border: 2px solid #5d4bba;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-weight: 1000;
+  font-style: Bold;
+  margin-top:500px;
+  margin-left: 300px;
+}
+.optionsContainer {
+    width: 100vw;
+    height: 500px;
+    display:flex;
+    justify-content: center;
+}
+.option {
+    width: 20%;
+    border-radius: 15px;
+    margin: 30px 30px;
+    height:300px;
+    background-color: #5d4bba;
+    transition: all .3 ease;
+    flex-direction: row;
+}
+
+img {
+    height: 150px;
+    width: 150px;
+    margin-left: 75px;
+}
+.cardTitle {
+    font-family: "DM Sans";
+    text-align: center;
+    color:white;
+    margin-top: 20px;
+}
+#final {
+    font-size: large;
+    
+}

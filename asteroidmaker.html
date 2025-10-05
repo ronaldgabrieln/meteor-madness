@@ -1,0 +1,748 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generador de Meteoritos - Three.js</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            background: linear-gradient(to bottom, #1a1a2e, #0f3460);
+            font-family: 'Arial', sans-serif;
+        }
+
+        canvas {
+            display: block;
+        }
+
+        #title {
+            position: absolute;
+            top: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: white;
+            font-size: 48px;
+            font-weight: bold;
+            text-align: center;
+            text-shadow: 0 0 10px rgba(100, 150, 200, 0.5);
+            letter-spacing: 8px;
+            z-index: 10;
+            transition: opacity 0.5s, transform 0.5s;
+        }
+
+        #launch-btn {
+            position: absolute;
+            bottom: 50px;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 20px 60px;
+            background: rgba(60, 60, 60, 0.3);
+            color: white;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 32px;
+            font-weight: bold;
+            transition: all 0.3s;
+            backdrop-filter: blur(10px);
+            z-index: 10;
+        }
+
+            #launch-btn:hover {
+                transform: translateX(-50%) scale(1.05);
+                background: rgba(80, 80, 80, 0.4);
+                border-color: rgba(255, 255, 255, 0.5);
+            }
+
+            #launch-btn:active {
+                transform: translateX(-50%) scale(0.95);
+            }
+
+        .fade-out {
+            opacity: 0 !important;
+            transform: translateX(-50%) translateY(100px) !important;
+        }
+    </style>
+</head>
+<body>
+    <div id="title">METEOR GENERATOR</div>
+    <button id="launch-btn">LAUNCH</button>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script>
+        // Configuración de la escena
+        const scene = new THREE.Scene();
+        scene.background = new THREE.Color(0x000000);
+
+        // Cámara
+        const camera = new THREE.PerspectiveCamera(
+            75,
+            window.innerWidth / window.innerHeight,
+            0.1,
+            1000
+        );
+        camera.position.z = 5;
+
+        // Renderer con bloom para luz difuminada
+        const renderer = new THREE.WebGLRenderer({ antialias: true });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.setPixelRatio(window.devicePixelRatio);
+        document.body.appendChild(renderer.domElement);
+
+        // Añadir estrellas de fondo
+        const starsGeometry = new THREE.BufferGeometry();
+        const starsMaterial = new THREE.PointsMaterial({
+            color: 0xffffff,
+            size: 0.05
+        });
+
+        const starsVertices = [];
+        for (let i = 0; i < 2000; i++) {
+            const x = (Math.random() - 0.5) * 100;
+            const y = (Math.random() - 0.5) * 100;
+            const z = (Math.random() - 0.5) * 100;
+            starsVertices.push(x, y, z);
+        }
+
+        starsGeometry.setAttribute('position',
+            new THREE.Float32BufferAttribute(starsVertices, 3)
+        );
+        const stars = new THREE.Points(starsGeometry, starsMaterial);
+        scene.add(stars);
+
+        // Iluminación ambiental
+        const ambientLight = new THREE.AmbientLight(0xffffff, 0.2);
+        scene.add(ambientLight);
+
+        const pointLight = new THREE.PointLight(0xffffff, 0.5);
+        pointLight.position.set(5, 5, 5);
+        scene.add(pointLight);
+
+        // Luz blanca emitida por el meteorito (luz real más intensa)
+        const meteoriteLight = new THREE.PointLight(0xffffff, 3, 8);
+        meteoriteLight.position.set(0, 0, 0);
+        meteoriteLight.castShadow = false;
+        scene.add(meteoriteLight);
+
+        // Luz adicional blanca más suave para difuminar
+        const meteoriteLightSoft = new THREE.PointLight(0xffffff, 1.5, 12);
+        meteoriteLightSoft.position.set(0, 0, 0);
+        scene.add(meteoriteLightSoft);
+
+        // Crear meteorito central con textura
+        let meteoriteGeometry = new THREE.SphereGeometry(1, 64, 64);
+        let meteoriteMaterial = new THREE.MeshStandardMaterial({
+            color: 0x6b6b6b,
+            metalness: 0.4,
+            roughness: 0.9,
+            emissive: 0x6b6b6b,
+            emissiveIntensity: 1
+        });
+        let meteorite = new THREE.Mesh(meteoriteGeometry, meteoriteMaterial);
+        scene.add(meteorite);
+
+        // Sistema de glow difuminado con múltiples capas
+        const glowLayers = [];
+        const numGlowLayers = 2;
+
+        for (let i = 0; i < numGlowLayers; i++) {
+            const scale = 1.15 + (i * 0.2);
+            const baseOpacity = 0.35 - (i * 0.05);
+
+            const glowGeometry = new THREE.SphereGeometry(scale, 32, 32);
+            const glowMaterial = new THREE.MeshBasicMaterial({
+                color: new THREE.Color().setHSL(0.2 - (i * 0.2), 0.7 - (i * 0.2), 0.2 - (i * 0.2)),
+                transparent: true,
+                opacity: baseOpacity,
+                side: THREE.BackSide,
+                depthWrite: false
+            });
+            const glowMesh = new THREE.Mesh(glowGeometry, glowMaterial);
+            glowLayers.push({
+                mesh: glowMesh,
+                material: glowMaterial,
+                baseScale: scale,
+                baseOpacity: baseOpacity,
+                offset: i * 0.3
+            });
+            scene.add(glowMesh);
+        }
+
+        // Variables de control
+        let meteoriteSize = 1;
+        let rotationSpeed = 0.005;
+        let roughness = 0.9;
+        let emissiveIntensity = 1;
+        let deformAmount = 0.4;
+
+        // Función para crear textura de meteorito
+        function createMeteoriteTexture() {
+            const canvas = document.createElement('canvas');
+            canvas.width = 512;
+            canvas.height = 512;
+            const ctx = canvas.getContext('2d');
+
+            ctx.fillStyle = '#4a4a4a';
+            ctx.fillRect(0, 0, 512, 512);
+
+            for (let i = 0; i < 80; i++) {
+                const x = Math.random() * 512;
+                const y = Math.random() * 512;
+                const radius = Math.random() * 30 + 5;
+                const darkness = Math.random() * 0.3;
+
+                ctx.fillStyle = `rgba(0, 0, 0, ${darkness})`;
+                ctx.beginPath();
+                ctx.arc(x, y, radius, 0, Math.PI * 2);
+                ctx.fill();
+            }
+
+            // Agregar manchas claras
+            for (let i = 0; i < 60; i++) {
+                const x = Math.random() * 512;
+                const y = Math.random() * 512;
+                const radius = Math.random() * 20 + 3;
+                const brightness = Math.random() * 0.2;
+
+                ctx.fillStyle = `rgba(255, 255, 255, ${brightness})`;
+                ctx.beginPath();
+                ctx.arc(x, y, radius, 0, Math.PI * 2);
+                ctx.fill();
+            }
+
+            return new THREE.CanvasTexture(canvas);
+        }
+
+        // Aplicar textura
+        meteoriteMaterial.map = createMeteoriteTexture();
+        meteoriteMaterial.needsUpdate = true;
+
+        function deformMeteorite(amount) {
+            const positions = meteoriteGeometry.attributes.position;
+
+            for (let i = 0; i < positions.count; i++) {
+                const vertex = new THREE.Vector3();
+                vertex.fromBufferAttribute(positions, i);
+
+                const noise = (Math.random() - 0.5) * amount;
+                const noise2 = Math.sin(i * 0.5) * Math.cos(i * 0.3) * amount * 0.5;
+                vertex.normalize();
+                vertex.multiplyScalar(meteoriteSize * (1 + noise + noise2));
+
+                positions.setXYZ(i, vertex.x, vertex.y, vertex.z);
+            }
+
+            positions.needsUpdate = true;
+            meteoriteGeometry.computeVertexNormals();
+        }
+
+        // Aplicar deformación inicial
+        deformMeteorite(deformAmount);
+
+        // ========== SISTEMA DE CONTROLES 3D ==========
+        const controles = [];
+
+        // Función para crear iconos en canvas
+        function crearIcono(tipo) {
+            const canvas = document.createElement('canvas');
+            canvas.width = 256;
+            canvas.height = 256;
+            const ctx = canvas.getContext('2d');
+
+            ctx.strokeStyle = '#ffffff';
+            ctx.fillStyle = '#ffffff';
+            ctx.lineWidth = 20;
+            ctx.lineCap = 'round';
+
+            if (tipo === 'size') {
+                // Círculos concéntricos
+                ctx.beginPath();
+                ctx.arc(128, 128, 40, 0, Math.PI * 2);
+                ctx.stroke();
+                ctx.beginPath();
+                ctx.arc(128, 128, 70, 0, Math.PI * 2);
+                ctx.stroke();
+                ctx.beginPath();
+                ctx.arc(128, 128, 100, 0, Math.PI * 2);
+                ctx.stroke();
+            } else if (tipo === 'rotation') {
+                // Flechas circulares
+                ctx.beginPath();
+                ctx.arc(128, 128, 80, 0.3, Math.PI * 2 - 0.3);
+                ctx.stroke();
+                // Flecha
+                ctx.beginPath();
+                ctx.moveTo(200, 150);
+                ctx.lineTo(170, 130);
+                ctx.lineTo(190, 110);
+                ctx.stroke();
+            } else if (tipo === 'roughness') {
+                // Textura rugosa
+                for (let i = 0; i < 30; i++) {
+                    ctx.beginPath();
+                    ctx.arc(Math.random() * 256, Math.random() * 256, 5, 0, Math.PI * 2);
+                    ctx.fill();
+                }
+            } else if (tipo === 'brightness') {
+                // Sol/estrella
+                ctx.beginPath();
+                ctx.arc(128, 128, 50, 0, Math.PI * 2);
+                ctx.fill();
+                for (let i = 0; i < 8; i++) {
+                    const angle = (i * Math.PI * 2) / 8;
+                    ctx.beginPath();
+                    ctx.moveTo(128 + Math.cos(angle) * 60, 128 + Math.sin(angle) * 60);
+                    ctx.lineTo(128 + Math.cos(angle) * 100, 128 + Math.sin(angle) * 100);
+                    ctx.stroke();
+                }
+            } else if (tipo === 'deform') {
+                // Forma irregular
+                ctx.beginPath();
+                for (let i = 0; i <= 16; i++) {
+                    const angle = (i * Math.PI * 2) / 16;
+                    const radius = 80 + Math.random() * 30;
+                    const x = 128 + Math.cos(angle) * radius;
+                    const y = 128 + Math.sin(angle) * radius;
+                    if (i === 0) ctx.moveTo(x, y);
+                    else ctx.lineTo(x, y);
+                }
+                ctx.closePath();
+                ctx.stroke();
+            }
+
+            return new THREE.CanvasTexture(canvas);
+        }
+
+        // Función para crear texto en canvas
+        function crearTextoCanvas(texto, valor) {
+            const canvas = document.createElement('canvas');
+            canvas.width = 512;
+            canvas.height = 128;
+            const ctx = canvas.getContext('2d');
+
+            ctx.fillStyle = '#00ffff';
+            ctx.font = 'bold 36px Arial';
+            ctx.textAlign = 'center';
+            ctx.fillText(texto, 256, 50);
+
+            ctx.fillStyle = '#ffffff';
+            ctx.font = 'bold 48px Arial';
+            ctx.fillText(valor, 256, 100);
+
+            return new THREE.CanvasTexture(canvas);
+        }
+
+        // Función para crear botones +/-
+        function crearBotonesMasMenos(x, y, control) {
+            // Botón +
+            const plusGeometry = new THREE.CircleGeometry(0.15, 32);
+            const plusMaterial = new THREE.MeshBasicMaterial({
+                color: 0x111111,
+                transparent: true,
+                opacity: 0.1
+            });
+            const plusButton = new THREE.Mesh(plusGeometry, plusMaterial);
+            plusButton.position.set(x + 0.7, y, 0.12);
+            scene.add(plusButton);
+
+            // Texto +
+            const plusCanvas = document.createElement('canvas');
+            plusCanvas.width = 128;
+            plusCanvas.height = 128;
+            const plusCtx = plusCanvas.getContext('2d');
+            plusCtx.fillStyle = '#ffffff';
+            plusCtx.font = 'bold 100px Arial';
+            plusCtx.textAlign = 'center';
+            plusCtx.textBaseline = 'middle';
+            plusCtx.fillText('+', 64, 64);
+            const plusTexture = new THREE.CanvasTexture(plusCanvas);
+            const plusTextMaterial = new THREE.MeshBasicMaterial({
+                map: plusTexture,
+                transparent: true
+            });
+            const plusTextGeometry = new THREE.PlaneGeometry(0.2, 0.2);
+            const plusText = new THREE.Mesh(plusTextGeometry, plusTextMaterial);
+            plusText.position.set(x + 0.7, y, 0.13);
+            scene.add(plusText);
+
+            // Botón -
+            const minusGeometry = new THREE.CircleGeometry(0.15, 32);
+            const minusMaterial = new THREE.MeshBasicMaterial({
+                color: 0x111111,
+                transparent: true,
+                opacity: 0.1
+            });
+            const minusButton = new THREE.Mesh(minusGeometry, minusMaterial);
+            minusButton.position.set(x - 0.7, y, 0.12);
+            scene.add(minusButton);
+
+            // Texto -
+            const minusCanvas = document.createElement('canvas');
+            minusCanvas.width = 128;
+            minusCanvas.height = 128;
+            const minusCtx = minusCanvas.getContext('2d');
+            minusCtx.fillStyle = '#ffffff';
+            minusCtx.font = 'bold 100px Arial';
+            minusCtx.textAlign = 'center';
+            minusCtx.textBaseline = 'middle';
+            minusCtx.fillText('-', 64, 64);
+            const minusTexture = new THREE.CanvasTexture(minusCanvas);
+            const minusTextMaterial = new THREE.MeshBasicMaterial({
+                map: minusTexture,
+                transparent: true
+            });
+            const minusTextGeometry = new THREE.PlaneGeometry(0.2, 0.2);
+            const minusText = new THREE.Mesh(minusTextGeometry, minusTextMaterial);
+            minusText.position.set(x - 0.7, y, 0.13);
+            scene.add(minusText);
+
+            return { plusButton, plusMaterial, minusButton, minusMaterial, plusText, minusText };
+        }
+
+        // Función para crear control 3D
+        function crearControl(angle, iconType, label, minVal, maxVal, defaultVal, callback) {
+            const radius = 3.5;
+            const x = Math.cos(angle) * radius;
+            const y = Math.sin(angle) * radius;
+
+            // Base del control
+            const baseGeometry = new THREE.CylinderGeometry(0.4, 0.4, 0.2, 32);
+            const baseMaterial = new THREE.MeshStandardMaterial({
+                color: 0x2a2a2a,
+                metalness: 0.6,
+                roughness: 0.3
+            });
+            const base = new THREE.Mesh(baseGeometry, baseMaterial);
+            base.position.set(x, y, 0);
+            base.rotation.x = Math.PI / 2;
+            scene.add(base);
+
+            // Icono
+            const iconTexture = crearIcono(iconType);
+            const iconMaterial = new THREE.MeshBasicMaterial({
+                map: iconTexture,
+                transparent: true,
+                side: THREE.DoubleSide
+            });
+            const iconGeometry = new THREE.CircleGeometry(0.3, 32);
+            const icon = new THREE.Mesh(iconGeometry, iconMaterial);
+            icon.position.set(x, y, 0.12);
+            scene.add(icon);
+
+            // Etiqueta de texto
+            const textTexture = crearTextoCanvas(label, defaultVal.toFixed(2));
+            const textMaterial = new THREE.MeshBasicMaterial({
+                map: textTexture,
+                transparent: true,
+                side: THREE.DoubleSide
+            });
+            const textGeometry = new THREE.PlaneGeometry(1.5, 0.375);
+            const textMesh = new THREE.Mesh(textGeometry, textMaterial);
+            textMesh.position.set(x, y - 0.7, 0);
+            scene.add(textMesh);
+
+            // Crear botones +/-
+            const buttons = crearBotonesMasMenos(x, y, null);
+
+            const control = {
+                base: base,
+                icon: icon,
+                textMesh: textMesh,
+                textMaterial: textMaterial,
+                baseMaterial: baseMaterial,
+                label: label,
+                value: defaultVal,
+                minVal: minVal,
+                maxVal: maxVal,
+                callback: callback,
+                hovered: false,
+                targetPos: new THREE.Vector3(x, y, 0),
+                fadeOut: false,
+                fadeProgress: 0,
+                ...buttons
+            };
+
+            controles.push(control);
+        }
+
+        // Crear controles en círculo
+        const numControls = 5;
+        const angleStep = (Math.PI * 2) / numControls;
+        const startAngle = -Math.PI / 2;
+
+        crearControl(startAngle + angleStep * 2.5, 'size', 'SIZE', 0.5, 2, 1, (val) => {
+            meteoriteSize = val;
+            recreateMeteorite();
+        });
+
+        crearControl(startAngle + angleStep * 1, 'rotation', 'ANGULAR VEL', 0, 0.05, 0.005, (val) => {
+            rotationSpeed = val;
+        });
+
+        crearControl(startAngle + angleStep * 1.66, 'roughness', 'ROUGHNESS', 0.5, 1, 0.9, (val) => {
+            roughness = val;
+            meteoriteMaterial.roughness = roughness;
+        });
+
+        crearControl(startAngle + angleStep * 3.33, 'brightness', 'BRIGHTNESS', 0, 2, 0.1, (val) => {
+            emissiveIntensity = val;
+            meteoriteMaterial.emissiveIntensity = emissiveIntensity;
+            meteoriteLight.intensity = emissiveIntensity * 3;
+            meteoriteLightSoft.intensity = emissiveIntensity * 1.5;
+        });
+
+        crearControl(startAngle + angleStep * 4, 'deform', 'DENSITY', 0.05, 0.3, 0.15, (val) => {
+            deformAmount = val;
+            recreateMeteorite();
+        });
+
+        // Función para recrear el meteorito
+        function recreateMeteorite() {
+            scene.remove(meteorite);
+            meteoriteGeometry.dispose();
+
+            meteoriteGeometry = new THREE.SphereGeometry(meteoriteSize, 64, 64);
+            meteorite = new THREE.Mesh(meteoriteGeometry, meteoriteMaterial);
+            scene.add(meteorite);
+
+            // Actualizar glow layers
+            glowLayers.forEach((layer, i) => {
+                const scale = layer.baseScale;
+                layer.mesh.scale.set(meteoriteSize * scale, meteoriteSize * scale, meteoriteSize * scale);
+            });
+
+            deformMeteorite(deformAmount);
+        }
+
+        // Raycasting para interacción
+        const raycaster = new THREE.Raycaster();
+        const mouse = new THREE.Vector2();
+        let isDragging = false;
+        let draggedControl = null;
+
+        document.addEventListener('click', (event) => {
+            mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+            mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+
+            raycaster.setFromCamera(mouse, camera);
+
+            controles.forEach(control => {
+                const plusIntersects = raycaster.intersectObject(control.plusButton);
+                const minusIntersects = raycaster.intersectObject(control.minusButton);
+
+                if (plusIntersects.length > 0) {
+                    const step = (control.maxVal - control.minVal) / 20;
+                    control.value = Math.min(control.maxVal, control.value + step);
+                    control.callback(control.value);
+                    const newTexture = crearTextoCanvas(control.label, control.value.toFixed(2));
+                    control.textMaterial.map = newTexture;
+                    control.textMaterial.needsUpdate = true;
+                }
+
+                if (minusIntersects.length > 0) {
+                    const step = (control.maxVal - control.minVal) / 20;
+                    control.value = Math.max(control.minVal, control.value - step);
+                    control.callback(control.value);
+                    const newTexture = crearTextoCanvas(control.label, control.value.toFixed(2));
+                    control.textMaterial.map = newTexture;
+                    control.textMaterial.needsUpdate = true;
+                }
+            });
+        });
+
+        document.addEventListener('mousemove', (event) => {
+            mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+            mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+
+            raycaster.setFromCamera(mouse, camera);
+            const baseMeshes = controles.map(c => c.base);
+            const intersects = raycaster.intersectObjects(baseMeshes);
+
+            let anyHovered = false;
+            controles.forEach(control => {
+                const isHovered = intersects.some(int => int.object === control.base);
+                const plusIntersects = raycaster.intersectObject(control.plusButton);
+                const minusIntersects = raycaster.intersectObject(control.minusButton);
+                control.hovered = isHovered || plusIntersects.length > 0 || minusIntersects.length > 0;
+                if (control.hovered) anyHovered = true;
+            });
+
+            if (isDragging && draggedControl) {
+                const delta = event.movementX;
+                const range = draggedControl.maxVal - draggedControl.minVal;
+                const change = (delta / window.innerWidth) * range * 2;
+                draggedControl.value = Math.max(draggedControl.minVal,
+                    Math.min(draggedControl.maxVal, draggedControl.value + change));
+
+                draggedControl.callback(draggedControl.value);
+
+                // Actualizar texto
+                const newTexture = crearTextoCanvas(draggedControl.label, draggedControl.value.toFixed(2));
+                draggedControl.textMaterial.map = newTexture;
+                draggedControl.textMaterial.needsUpdate = true;
+            }
+
+            document.body.style.cursor = (anyHovered || isDragging) ? 'pointer' : 'default';
+        });
+
+        document.addEventListener('mousedown', (event) => {
+            raycaster.setFromCamera(mouse, camera);
+            const baseMeshes = controles.map(c => c.base);
+            const intersects = raycaster.intersectObjects(baseMeshes);
+
+            if (intersects.length > 0) {
+                isDragging = true;
+                const clickedMesh = intersects[0].object;
+                draggedControl = controles.find(c => c.base === clickedMesh);
+            }
+        });
+
+        document.addEventListener('mouseup', () => {
+            isDragging = false;
+            draggedControl = null;
+        });
+
+        // Variables de movimiento del mouse
+        let mouseX = 0;
+        let mouseY = 0;
+
+        document.addEventListener('mousemove', (event) => {
+            mouseX = (event.clientX / window.innerWidth) * 2 - 1;
+            mouseY = -(event.clientY / window.innerHeight) * 2 + 1;
+        });
+
+        // Botón lanzar con fadeout
+        let isLaunching = false;
+        document.getElementById('launch-btn').addEventListener('click', () => {
+            if (!isLaunching) {
+                isLaunching = true;
+
+                // Fade out título y botón
+                document.getElementById('title').classList.add('fade-out');
+                document.getElementById('launch-btn').classList.add('fade-out');
+
+                // Activar fadeout de controles
+                controles.forEach((control, index) => {
+                    control.fadeOut = true;
+                    control.fadeDelay = index * 0.1;
+                });
+            }
+        });
+
+        // Loop de animación
+        function animate() {
+            requestAnimationFrame(animate);
+
+            // Rotar meteorito
+            meteorite.rotation.x += rotationSpeed;
+            meteorite.rotation.y += rotationSpeed * 0.7;
+
+            // Animar capas de glow con oscilación sutil y opacidad basada en brightness
+            const time = Date.now() * 0.001;
+            glowLayers.forEach((layer, i) => {
+                // Oscilación muy sutil
+                const pulseSpeed = 1.5 + (i * 0.2);
+                const pulseAmount = 0.015 + (i * 0.005); // Oscilación mínima (1.5% - 2.5%)
+                const pulse = 1 + Math.sin(time * pulseSpeed + layer.offset) * pulseAmount;
+
+                // Escalar con tamaño del meteorito y oscilación
+                const scale = meteoriteSize * layer.baseScale * pulse;
+                layer.mesh.scale.set(scale, scale, scale);
+
+                // Opacidad depende del brightness (emissiveIntensity normalizado 0-1)
+                const brightnessNormalized = Math.min(emissiveIntensity / 2, 1);
+                layer.material.opacity = layer.baseOpacity * brightnessNormalized;
+
+                // Rotar cada capa a diferente velocidad
+                layer.mesh.rotation.x += rotationSpeed * (1 + i * 0.1);
+                layer.mesh.rotation.y += rotationSpeed * 0.7 * (1 + i * 0.1);
+            });
+
+            // Animar controles
+            controles.forEach(control => {
+                if (control.fadeOut) {
+                    control.fadeProgress += 0.02;
+                    const progress = Math.min(control.fadeProgress, 1);
+
+                    // Calcular dirección hacia afuera
+                    const angle = Math.atan2(control.targetPos.y, control.targetPos.x);
+                    const distance = 15 * progress;
+                    const targetX = control.targetPos.x + Math.cos(angle) * distance;
+                    const targetY = control.targetPos.y + Math.sin(angle) * distance;
+                    const targetZ = -distance * 2;
+
+                    // Lerp de posición
+                    control.base.position.x += (targetX - control.base.position.x) * 0.1;
+                    control.base.position.y += (targetY - control.base.position.y) * 0.1;
+                    control.base.position.z += (targetZ - control.base.position.z) * 0.1;
+
+                    control.icon.position.x = control.base.position.x;
+                    control.icon.position.y = control.base.position.y;
+                    control.icon.position.z = control.base.position.z + 0.12;
+
+                    control.textMesh.position.x = control.base.position.x;
+                    control.textMesh.position.y = control.base.position.y - 0.7;
+                    control.textMesh.position.z = control.base.position.z;
+
+                    control.plusButton.position.x = control.base.position.x + 0.7;
+                    control.plusButton.position.y = control.base.position.y;
+                    control.plusButton.position.z = control.base.position.z + 0.12;
+
+                    control.plusText.position.x = control.base.position.x + 0.7;
+                    control.plusText.position.y = control.base.position.y;
+                    control.plusText.position.z = control.base.position.z + 0.13;
+
+                    control.minusButton.position.x = control.base.position.x - 0.7;
+                    control.minusButton.position.y = control.base.position.y;
+                    control.minusButton.position.z = control.base.position.z + 0.12;
+
+                    control.minusText.position.x = control.base.position.x - 0.7;
+                    control.minusText.position.y = control.base.position.y;
+                    control.minusText.position.z = control.base.position.z + 0.13;
+
+                    // Fade out opacity
+                    const opacity = 1 - progress;
+                    control.baseMaterial.opacity = opacity;
+                    control.baseMaterial.transparent = true;
+                    control.textMaterial.opacity = opacity;
+                    control.plusMaterial.opacity = opacity * 0.8;
+                    control.minusMaterial.opacity = opacity * 0.8;
+                } else {
+                    if (control.hovered || isDragging && draggedControl === control) {
+                        control.base.scale.lerp(new THREE.Vector3(1.2, 1.2, 1.2), 0.1);
+                        control.icon.scale.lerp(new THREE.Vector3(1.2, 1.2, 1.2), 0.1);
+                        control.baseMaterial.emissiveIntensity = 0.5;
+                    } else {
+                        control.base.scale.lerp(new THREE.Vector3(1, 1, 1), 0.1);
+                        control.icon.scale.lerp(new THREE.Vector3(1, 1, 1), 0.1);
+                        control.baseMaterial.emissiveIntensity = 0;
+                    }
+
+                    // Rotar iconos
+                    control.icon.rotation.z += 0.01;
+                }
+            });
+
+            // Rotar estrellas
+            stars.rotation.y += 0.0002;
+
+            // Movimiento de cámara con mouse
+            camera.position.x += (mouseX * 0.5 - camera.position.x) * 0.05;
+            camera.position.y += (mouseY * 0.5 - camera.position.y) * 0.05;
+            camera.lookAt(scene.position);
+
+            renderer.render(scene, camera);
+        }
+
+        // Ajustar tamaño al redimensionar
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+
+        animate();
+    </script>
+</body>
+</html>

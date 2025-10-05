@@ -1,0 +1,48 @@
+* {
+    margin : 0;
+
+}
+
+body {
+    width: 100vw;
+    height: 100vh;
+    background-color: #0d0149;
+    background-image: url(/imgsoptions/ask\ cartonso.png);
+    background-size: 80% auto;
+    background-repeat: no-repeat;
+}
+#back {
+    font-family: "DM Sans";
+    background-color: #19028e;
+    position: fixed;
+    left: 5%;
+    color: white;
+    box-shadow: none;
+    border: 2px solid #5d4bba;
+    width: 100px;
+    height: 40px;
+    transition: all 0.2s ease;
+    top: 10%;
+}
+#options {
+    padding: 20px 40px;
+  border-radius: 15px;
+  background-position: center;
+  text-decoration: none;
+  color: #0d0149;
+  background-color: #5d4bba;
+  font-size: 20px;
+  border: 2px solid #5d4bba;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-weight: 1000;
+  font-style: Bold;
+  margin-top:500px;
+  margin-left: 300px;
+}
+
+#options:hover {
+    background-color: #4c3ba3;
+  color: white;
+  box-shadow: 0 0 10px white;
+}
