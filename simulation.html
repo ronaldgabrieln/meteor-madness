@@ -600,7 +600,7 @@ prefabButtons.forEach(button => {
         // Close drawer and activate targeting mode
         drawer.classList.remove('open');
         overlay.classList.remove('active');
-        alaverga = true;
+        varfix = true;
         ipon.visible = true;
     });
 });
@@ -864,7 +864,7 @@ prefabButtons.forEach(button => {
         ipon.visible = false;
         scene.add(ipon);
 
-        let alaverga = false;
+        let varfix = false;
         let mouseX = 0, mouseY = 0;
 
         function crearCrater(worldPoint) {
@@ -1008,9 +1008,9 @@ prefabButtons.forEach(button => {
         }
 
         function toggleTargetMode() {
-            alaverga = !alaverga;
-            ipon.visible = alaverga;
-            document.body.style.cursor = alaverga ? 'crosshair' : 'default';
+            varfix = !varfix;
+            ipon.visible = varfix;
+            document.body.style.cursor = varfix ? 'crosshair' : 'default';
         }
 
         crearBoton(-4, -2.5, 0, 0x00ffaa, 'reset', restaurarEsfera);
@@ -1036,7 +1036,7 @@ prefabButtons.forEach(button => {
             }
 
             const intersects = raycaster.intersectObject(earth);
-            if (intersects.length > 0 && alaverga && !meteoriteActive) {
+            if (intersects.length > 0 && varfix && !meteoriteActive) {
                 lanzarMeteorito(intersects[0].point);
             }
         });
@@ -1056,9 +1056,9 @@ prefabButtons.forEach(button => {
                 if (boton.hovered) anyHovered = true;
             });
 
-            document.body.style.cursor = anyHovered ? 'pointer' : (alaverga ? 'crosshair' : 'default');
+            document.body.style.cursor = anyHovered ? 'pointer' : (varfix ? 'crosshair' : 'default');
 
-            if (alaverga && !meteoriteActive) {
+            if (varfix && !meteoriteActive) {
                 const sphereIntersects = raycaster.intersectObject(earth);
                 if (sphereIntersects.length > 0) {
                     const point = sphereIntersects[0].point;
@@ -1250,7 +1250,7 @@ prefabButtons.forEach(button => {
             meteoriteGeometry = new THREE.SphereGeometry(meteoriteSize, 32, 32);
             meteorite.geometry = meteoriteGeometry;
             deformConstructorMeteorite(0.2);
-            alaverga = true;
+            varfix = true;
             ipon.visible = true;
         });
 
@@ -1305,7 +1305,7 @@ prefabButtons.forEach(button => {
                     meteoriteLight.visible = false;
                     trail.visible = false;
                     meteoriteActive = false;
-                    alaverga = false;
+                    varfix = false;
                     ipon.visible = false;
                 } else {
                     meteorite.position.lerpVectors(meteoriteStart, meteoriteTarget, meteoriteProgress);
