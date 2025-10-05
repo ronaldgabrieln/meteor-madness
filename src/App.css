@@ -8,6 +8,7 @@
 * {
   font-family: 'DM Sans';
   text-decoration: none;
+
 }
 #generalFlex {
   display: flex;
@@ -147,6 +148,7 @@ button.startsim:hover {
   transition: opacity 0.3s ease;
 height: fit-content;
 width: 300px;
+right: 45%;
 margin-top:50px;
 color: #5d4bba;
 background-color: rgb(255,255,255,1);
@@ -164,11 +166,30 @@ li {
   transition: text-shadow 0.3s ease;
 }
 
-li:hover {
+.listData:hover {
 text-shadow:  0 0 10px white;
+}
+.about-us-text:hover {
+   text-shadow:  0 0 10px white;
 }
 .about-us-text:hover ~ #about-us-div {
 opacity: 1;
-right: 43%;
 
+  
+}
+
+.cartonsoIcon {
+  position: fixed;
+  background-color: black;
+  width: 150px;
+  height: 150px;
+  right: 5%;
+  top:75%;
+  background-image: url("cartonso.png");
+  background-size: cover;
+  border-radius: 100%;
+
+}
+.cartonsoIcon:hover {
+  box-shadow: 0 0 10px white;;
 }
