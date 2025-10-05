@@ -1,1 +1,195 @@
+/*FONTS*/
 
+/**/
+@font-face {
+  font-family: 'Roca one';
+  src: url(/Roca\ Regular.ttf);
+}
+* {
+  font-family: 'DM Sans';
+  text-decoration: none;
+
+}
+#generalFlex {
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+  align-items: center;
+}
+.nav-container {
+  display: flex;
+  width:50%;
+  height: 30px;
+  padding-top:30px;
+  color: #ffde59;
+  padding-bottom:150px;
+  justify-content: space-evenly;
+}
+.title-container{
+  text-align: center;
+  background-color: rgba(189, 222, 255, 0.58);
+  padding: 2px 45px 2px 45px;
+  margin-bottom: 70px;
+}
+#Ttext {
+  color: #1c0d6b;
+  font-family: 'Roca one';
+}
+#Stitle {
+  margin-top:30px;
+  font-size:x-larger;
+  color:#0d0149;
+}
+h1{
+  color: #0d0149 ;
+  font-size: 120px;
+  font-family: "DM Sans", sans-serif;
+  font-weight: 1000;
+  font-style: Bold;
+  margin-bottom: -40px;
+  margin-top: 10px;
+}
+
+h2{
+  color: #ffde59 ;
+  font-size: 30px;
+  font-family: "Time new roman", sans-serif;
+}
+
+#backAsteroid {
+  height: 50vh;
+  position: absolute;
+}
+
+body
+{
+	background-image: url("ete.png");
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: cover;
+	
+	height: 100vh;
+  width: 100vw;
+  margin: 0;
+   /* center horizontally */
+   /* move to bottom */
+  background-color: #0d0149; /* optional */
+}
+
+/* container for both buttons */
+.button-container {
+  display: flex;
+  gap: 30px;              /* space between buttons */
+  margin-bottom: 40px;    /* how far from the bottom */
+}
+
+button {
+  padding: 20px 40px;
+  border-radius: 15px;
+  background-position: center;
+  text-decoration: none;
+  color: #0d0149;
+  background-color: #5d4bba;
+  font-size: 20px;
+  border: 2px solid #5d4bba;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-weight: 1000;
+  font-style: Bold;
+}
+
+a{
+  
+  
+  background-position: center;
+  text-decoration: none;
+  color: rgb(241, 203, 30);
+   font-weight: 1000;
+  font-style: Bold;
+
+
+}
+upper{
+  padding: 20px 40px;
+  border-radius: 15px;
+  background-position: center;
+  text-decoration: none;
+  color: #0d0149;
+  background-color: #5d4bba;
+  font-size: 20px;
+  border: 2px solid #5d4bba;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-weight: 1000;
+  font-style: Bold;
+}
+
+button:hover {
+  background-color: #4c3ba3;
+  color: white;
+  box-shadow: 0 0 10px white;
+}
+
+button.startsim {
+  background-color: transparent;
+  color: white;
+  font-weight: 1000;
+  font-style: Bold;
+}
+
+button.startsim:hover {
+  background-color: #5d4bba;
+  color: white;
+}
+
+
+#about-us-div {
+  opacity: 0;
+  transition: opacity 0.3s ease;
+height: fit-content;
+width: 300px;
+right: 45%;
+margin-top:50px;
+color: #5d4bba;
+background-color: rgb(255,255,255,1);
+position:absolute;
+border-radius: 10px;
+padding: 5px 20px;
+}
+
+ul {
+  list-style: none;
+  display: flex;
+}
+li {
+  margin: 0 50px;
+  transition: text-shadow 0.3s ease;
+}
+
+.listData:hover {
+text-shadow:  0 0 10px white;
+}
+.about-us-text:hover {
+   text-shadow:  0 0 10px white;
+}
+.about-us-text:hover ~ #about-us-div {
+opacity: 1;
+
+  
+}
+
+.cartonsoIcon {
+  position: fixed;
+  background-color: black;
+  width: 150px;
+  height: 150px;
+  right: 5%;
+  top:75%;
+  background-image: url("cartonso.png");
+  background-size: cover;
+  border-radius: 100%;
+
+}
+.cartonsoIcon:hover {
+  box-shadow: 0 0 10px white;;
+}

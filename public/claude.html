@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!--FONTS-->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap" rel="stylesheet">
+    <!---->
+    <title>Defender - Cartonso AI</title>
+
+    <link rel="stylesheet" href="cartonso.css">
+</head>
+<body>
+    <div id="navbar">
+                <button id="back" onclick="window.location.href='index.html'"><b>GO BACK</b></button>
+    </div>
+    <div class="content">
+    <img src="ask cartonso.png">
+    <div class="chat-container">
+        <div class="chat-header">
+            <h1>Hi, I'm Cartonso,</h1>
+            <p>ask me about meteors!</p>
+        </div>
+        <div id="Ollama">
+        <div class="chat-messages" id="chatMessages">
+            <div class="message bot">
+                <div class="message-content">
+                    Hi! I'm AI Cartonso, ask me anything about space and meteors!
+                </div>
+            </div>
+        </div>
+
+        <div class="chat-input-container">
+            <input 
+                type="text" 
+                class="chat-input" 
+                id="userInput" 
+                placeholder="Pregúntame sobre meteoros..."
+                autocomplete="off"
+            >
+            <button class="send-button" id="sendButton">Enviar</button>
+        </div>
+        </div>
+    </div>
+</div>
+    <script>
+        const chatMessages = document.getElementById('chatMessages');
+        const userInput = document.getElementById('userInput');
+        const sendButton = document.getElementById('sendButton');
+        let conversationHistory = [];
+
+        // Agregar mensaje al chat
+        function addMessage(content, isUser = false) {
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${isUser ? 'user' : 'bot'}`;
+            
+            const contentDiv = document.createElement('div');
+            contentDiv.className = 'message-content';
+            contentDiv.textContent = content;
+            
+            messageDiv.appendChild(contentDiv);
+            chatMessages.appendChild(messageDiv);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        // Mostrar indicador de escritura
+        function showTypingIndicator() {
+            const typingDiv = document.createElement('div');
+            typingDiv.className = 'message bot';
+            typingDiv.id = 'typingIndicator';
+            
+            const indicatorDiv = document.createElement('div');
+            indicatorDiv.className = 'typing-indicator show';
+            indicatorDiv.innerHTML = '<span></span><span></span><span></span>';
+            
+            typingDiv.appendChild(indicatorDiv);
+            chatMessages.appendChild(typingDiv);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        // Remover indicador de escritura
+        function removeTypingIndicator() {
+            const indicator = document.getElementById('typingIndicator');
+            if (indicator) indicator.remove();
+        }
+
+        // Enviar mensaje
+        async function sendMessage() {
+            const message = userInput.value.trim();
+            if (!message) return;
+
+            // Agregar mensaje del usuario
+            addMessage(message, true);
+            conversationHistory.push({ role: 'user', content: message });
+            
+            userInput.value = '';
+            sendButton.disabled = true;
+            showTypingIndicator();
+
+            try {
+                const response = await fetch('http://localhost:3000/api/chat', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        message: message,
+                        history: conversationHistory.slice(-6) // Últimos 3 intercambios
+                    })
+                });
+
+                const data = await response.json();
+                removeTypingIndicator();
+
+                if (data.success) {
+                    addMessage(data.message, false);
+                    conversationHistory.push({ role: 'bot', content: data.message });
+                } else {
+                    addMessage('Lo siento, hubo un error. Asegúrate de que Ollama esté corriendo.', false);
+                }
+            } catch (error) {
+                removeTypingIndicator();
+                addMessage('Error de conexión. Verifica que el servidor Node.js esté corriendo.', false);
+                console.error('Error:', error);
+            }
+
+            sendButton.disabled = false;
+            userInput.focus();
+        }
+
+        // Event listeners
+        sendButton.addEventListener('click', sendMessage);
+        userInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') sendMessage();
+        });
+    </script>
+</body>
+</html>

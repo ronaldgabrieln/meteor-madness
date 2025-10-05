@@ -1,0 +1,64 @@
+
+@font-face {
+  font-family: 'Roca one';
+  src: url(/Roca\ Regular.ttf);
+}
+
+body {
+    background-color: #0d0149;
+    overflow-x: hidden;
+}
+
+#back {
+    font-family: "DM Sans";
+    background-color: #19028e;
+    color: white;
+    box-shadow: none;
+    border: 2px solid #5d4bba;
+    width: 150px;
+    height: 40px;
+    transition: all 0.2s ease;
+}
+#back:hover {
+    background-color: #4c3ba3;
+  box-shadow: 0 0 5px white;
+}
+.chat-header {
+    font-family: 'Roca one';
+    font-size: 1.5rem;
+    color: #ffde59;
+    text-align: right;
+}
+.content {
+    display: flex;
+    flex-wrap: wrap;
+    width:100vw;
+    height: fit-content;
+    justify-content: center;
+}
+img {
+    width: 30vw;
+    height: fit-content;
+}
+.message-content {
+    color: black;
+    background-color: white;
+    padding: 5px;
+    
+    
+}
+
+#Ollama {
+    font-family: "DM Sans";
+    background-color: #5d4bba;
+    padding: 30px 20px;
+    border-radius: 10px;
+}
+
+.message.user .message-content{
+    color: grey;
+}
+.message-content {
+    border-radius: 10px;
+    margin: 10px 0;
+}
