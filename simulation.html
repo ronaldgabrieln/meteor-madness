@@ -8,43 +8,17 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap" rel="stylesheet">
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "DM Sans", sans-serif;
+        }
 
-        .prefab-card {
-    background: rgba(93, 75, 186, 0.3);
-    border: 2px solid rgba(255, 222, 89, 0.3);
-    border-radius: 10px;
-    padding: 1rem;
-    transition: all 0.3s;
-}
-
-.prefab-card:hover {
-    background: rgba(93, 75, 186, 0.5);
-    border-color: rgba(255, 222, 89, 0.6);
-    transform: translateX(5px);
-}
-
-.prefab-btn {
-    padding: 0.75rem 1.5rem;
-    background-color: #5d4bba;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: all 0.3s;
-    white-space: nowrap;
-}
-
-.prefab-btn:hover {
-    background-color: #ffde59;
-    color: #0d0149;
-    transform: scale(1.05);
-}
         body {
             overflow: hidden;
             height: 100vh;
-            margin: 0;
-            font-family: "DM Sans", sans-serif;
+            background: #000;
         }
 
         .drawer-button {
@@ -60,14 +34,15 @@
             cursor: pointer;
             transition: all 0.3s;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            border-radius: 8px;
         }
 
-            .drawer-button:hover {
-                background-color: #ffde59;
-                color: #0d0149;
-                transform: translateY(-2px);
-                box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
-            }
+        .drawer-button:hover {
+            background-color: #ffde59;
+            color: #0d0149;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
+        }
 
         .drawer-overlay {
             position: fixed;
@@ -80,10 +55,10 @@
             backdrop-filter: blur(5px);
         }
 
-            .drawer-overlay.active {
-                opacity: 1;
-                visibility: visible;
-            }
+        .drawer-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
 
         .drawer {
             position: fixed;
@@ -96,12 +71,12 @@
             z-index: 50;
             transform: translateX(-100%);
             transition: transform 0.3s ease-in-out;
+            overflow-y: auto;
         }
 
-            .drawer.open {
-                transform: translateX(0);
-                overflow: auto;
-            }
+        .drawer.open {
+            transform: translateX(0);
+        }
 
         .drawer-header {
             display: flex;
@@ -112,7 +87,7 @@
         }
 
         .drawer-title {
-            font-size: 2.5rem;
+            font-size: 2rem;
             font-weight: bold;
             color: #ffde59;
             text-shadow: 0 0 20px rgba(255, 222, 89, 0.5);
@@ -131,11 +106,44 @@
             font-size: 1.5rem;
         }
 
-            .close-button:hover {
-                background-color: #ffde59;
-                color: #0d0149;
-                transform: rotate(90deg);
-            }
+        .close-button:hover {
+            background-color: #ffde59;
+            color: #0d0149;
+            transform: rotate(90deg);
+        }
+
+        .prefab-card {
+            background: rgba(93, 75, 186, 0.3);
+            border: 2px solid rgba(255, 222, 89, 0.3);
+            border-radius: 10px;
+            padding: 1rem;
+            transition: all 0.3s;
+            margin-bottom: 1rem;
+        }
+
+        .prefab-card:hover {
+            background: rgba(93, 75, 186, 0.5);
+            border-color: rgba(255, 222, 89, 0.6);
+            transform: translateX(5px);
+        }
+
+        .prefab-btn {
+            padding: 0.75rem 1.5rem;
+            background-color: #5d4bba;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            white-space: nowrap;
+        }
+
+        .prefab-btn:hover {
+            background-color: #ffde59;
+            color: #0d0149;
+            transform: scale(1.05);
+        }
 
         .DataBoard {
             position: absolute;
@@ -147,20 +155,21 @@
             border-left: 2px solid rgba(255, 222, 89, 0.3);
             padding: 2rem;
             box-shadow: -10px 0 30px rgba(0, 0, 0, 0.5);
+            overflow-y: auto;
         }
 
         h1, h2 {
             font-weight: 700;
             color: #ffde59;
             text-align: center;
-            font-size: 3rem;
+            font-size: 2.5rem;
             text-shadow: 0 0 20px rgba(255, 222, 89, 0.5);
             margin: 1rem 0;
         }
 
         h2 {
             font-size: 2rem;
-            margin-top: 3rem;
+            margin-top: 2rem;
         }
 
         .data-container {
@@ -184,10 +193,10 @@
             transition: all 0.3s;
         }
 
-            .data-item:hover {
-                background: rgba(255, 222, 89, 0.1);
-                transform: translateX(5px);
-            }
+        .data-item:hover {
+            background: rgba(255, 222, 89, 0.1);
+            transform: translateX(5px);
+        }
 
         .data-label {
             font-weight: 600;
@@ -197,6 +206,58 @@
         .data-value {
             font-weight: 400;
             color: #fff;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .action-btn {
+            flex: 1;
+            padding: 1rem;
+            border: none;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 1rem;
+        }
+
+        .reset-btn {
+            background: linear-gradient(135deg, #00ffaa 0%, #00cc88 100%);
+            color: #0d0149;
+        }
+
+        .reset-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(0, 255, 170, 0.5);
+        }
+
+        .target-btn {
+            background: linear-gradient(135deg, #ff0066 0%, #cc0055 100%);
+            color: white;
+        }
+
+        .target-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(255, 0, 102, 0.5);
+        }
+
+        .next-btn {
+            background: linear-gradient(135deg, #ffde59 0%, #ffc107 100%);
+            color: #0d0149;
+            display: none;
+        }
+
+        .next-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(255, 222, 89, 0.5);
+        }
+
+        .next-btn.visible {
+            display: block;
         }
 
         #meteor-constructor {
@@ -214,9 +275,9 @@
             backdrop-filter: blur(15px);
         }
 
-            #meteor-constructor.active {
-                transform: translate(-50%, -50%) scale(1);
-            }
+        #meteor-constructor.active {
+            transform: translate(-50%, -50%) scale(1);
+        }
 
         .constructor-title {
             color: #ffde59;
@@ -241,98 +302,42 @@
             box-shadow: 0 5px 20px rgba(255, 222, 89, 0.5);
         }
 
-            .launch-button:hover {
-                transform: translateY(-3px);
-                box-shadow: 0 8px 25px rgba(255, 222, 89, 0.7);
-            }
-
-            .launch-button:active {
-                transform: translateY(-1px);
-            }
-        @font-face {
-            font-family: 'Roca one';
-            src: url(/Roca\ Regular.ttf);
+        .launch-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(255, 222, 89, 0.7);
         }
 
-        * {
-            font-family: 'DM Sans';
-            text-decoration: none;
-        }
-
-        #card-container {
-            display: block;
-            justify-content: center;
-            align-items: center;
-            overflow-y: auto;
-        }
-
-
-        .asteroid-card {
-            display: flex;
-            background-color: #ffffff;
-            border-radius: 8px;
-            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
-            overflow: hidden;
-            max-width: 500px;
-            margin-bottom: 20px;
-            margin-left: 20px;
-            margin-right: 20px;
-        }
-
-
-        .asteroid-card-poster {
-            margin: 0;
-            width: 200px;
-            flex-shrink: 0;
-        }
-
-            .asteroid-card-poster img {
-                width: 100%;
-                height: 100%;
-                object-fit: cover;
-                display: block;
-            }
-
-
-        .asteroid-card-body {
-            padding: 24px;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .asteroid-card-title {
-            font-size: 1.5rem;
-            font-weight: bold;
-            margin: 0 0 8px 0;
-        }
-
-        .asteroid-card-body p {
-            margin: 0 0 16px 0;
-            flex-grow: 1;
-            color: #4a5568;
-        }
-
-
-        .asteroid-card-actions {
-            display: flex;
-            justify-content: flex-end;
-        }
-
-
-        .select-asteroid-btn {
-            padding: 10px 20px;
-            font-size: 1rem;
-            font-weight: 600;
-            border: none;
-            border-radius: 6px;
-            background-color: #007bff;
+        .control-label {
+            position: absolute;
             color: white;
-            cursor: pointer;
-            transition: background-color 0.2s ease-in-out;
+            font-size: 0.9rem;
+            font-weight: bold;
+            background: rgba(93, 75, 186, 0.8);
+            padding: 0.3rem 0.6rem;
+            border-radius: 4px;
+            pointer-events: none;
         }
 
-        .watch-button:hover {
-            background-color: #0056b3;
+        .impact-message {
+            background: rgba(255, 222, 89, 0.2);
+            border: 2px solid #ffde59;
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin: 1rem 0;
+            color: white;
+            font-size: 1.1rem;
+            line-height: 1.6;
+            display: none;
+        }
+
+        .impact-message.visible {
+            display: block;
+            animation: fadeIn 0.5s;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
     </style>
 </head>
@@ -341,22 +346,19 @@
 
     <div class="drawer-overlay" id="overlay"></div>
 
-<div class="drawer" id="drawer">
-    <div class="drawer-header">
-        <h2 class="drawer-title">ASTEROID SELECTOR</h2>
-        <button class="close-button" id="closeDrawer">✕</button>
-    </div>
-    <div style="padding: 2rem; color: white;">
-        <button class="launch-button" id="openConstructor">CREATE CUSTOM ASTEROID</button>
-        
-        <h3 style="color: #ffde59; margin-top: 2rem; margin-bottom: 1rem; text-align: center;">PREFAB ASTEROIDS</h3>
-        
-        <div style="display: grid; grid-template-columns: 1fr; gap: 1rem;">
-   
-            </div>
+    <div class="drawer" id="drawer">
+        <div class="drawer-header">
+            <h2 class="drawer-title">ASTEROID SELECTOR</h2>
+            <button class="close-button" id="closeDrawer">✕</button>
+        </div>
+        <div style="padding: 2rem; color: white;">
+            <button class="launch-button" id="openConstructor">CREATE CUSTOM ASTEROID</button>
+            
+            <h3 style="color: #ffde59; margin-top: 2rem; margin-bottom: 1rem; text-align: center;">PREFAB ASTEROIDS</h3>
+            
+            <div id="prefab-container"></div>
         </div>
     </div>
-</div>
    
     <div class="DataBoard">
         <h1>ASTEROID DATA</h1>
@@ -375,12 +377,12 @@
             </div>
             <div class="data-item">
                 <span class="data-label">Diameter:</span>
-                <span class="data-value" id="diameter-value">0 m</span>
+                <span class="data-value" id="diameter-value">0 km</span>
             </div>
-            <!--<div class="data-item">
-               <span class="data-label">Energy:</span>
-             <span class="data-value" id="energy-value">0 MT</span>
-            </div>-->
+            <div class="data-item">
+                <span class="data-label">Energy:</span>
+                <span class="data-value" id="energy-value">0 MT</span>
+            </div>
         </div>
 
         <h2>IMPACT DATA</h2>
@@ -402,143 +404,130 @@
                 <span class="data-value" id="tsunami-value">-- m</span>
             </div>
         </div>
+
+        <div class="impact-message" id="impact-message"></div>
+
+        <div class="action-buttons">
+            <button class="action-btn reset-btn" id="resetBtn">🔄 RESET EARTH</button>
+            <button class="action-btn target-btn" id="targetBtn">🎯 TARGET MODE</button>
+        </div>
+        <button class="action-btn next-btn" id="nextBtn">NEXT STAGE ➤</button>
     </div>
 
     <div id="meteor-constructor">
         <h2 class="constructor-title">ASTEROID CONSTRUCTOR</h2>
-        <div id="three-container" style="width: 600px; height: 400px;"></div>
+        <div id="three-container" style="width: 600px; height: 400px; position: relative;"></div>
         <button class="launch-button" id="launchMeteor">LAUNCH ASTEROID</button>
     </div>
-<script type="module">
-  // ======= NASA API CONFIG =======
-  const BASE_URL = "https://api.nasa.gov/neo/rest/v1";
-  const API_KEY = "cg7ceo2uoyo38vSTH5crqJbdjRrMVWUXMSYqJIWQ";
-
-  // ======= API FETCH FUNCTION =======
-  async function getAsteroidData(asteroid_id) {
-    try {
-      const response = await fetch(`${BASE_URL}/neo/${asteroid_id}?api_key=${API_KEY}`);
-      if (!response.ok) throw new Error("Network error while fetching asteroid data.");
-      const data = await response.json();
-      return data;
-    } catch (error) {
-      console.error("Failed to fetch asteroid data:", error);
-      return null;
-    }
-  }
-
-  // ======= PREFAB ASTEROID BUILDER =======
-  const asteroids = [2101955, 2001620, 2004486]; // Bennu, Geographos, Mithra
-  const asteroidDensities = [1190, 2000, 1900];  // kg/m^3
-  const prefabContainer = document.querySelector(".drawer div[style*='grid']");
-
-  async function createPrefabAsteroids() {
-    prefabContainer.innerHTML = "<p style='color:white;'>Loading prefab asteroids...</p>";
-
-    let prefabHTML = "";
-
-    for (let i = 0; i < asteroids.length; i++) {
-      const id = asteroids[i];
-      const data = await getAsteroidData(id);
-
-      if (!data) {
-        prefabHTML += `
-          <div class="prefab-card">
-            <p style="color: red;">Failed to load asteroid ${id}</p>
-          </div>`;
-        continue;
-      }
-
-      // === Extract and calculate values ===
-      const name = data.name;
-      const diameterMin = data.estimated_diameter.kilometers.estimated_diameter_min.toFixed(3);
-      const diameterMax = data.estimated_diameter.kilometers.estimated_diameter_max.toFixed(3);
-      const avgDiameter = ((parseFloat(diameterMin) + parseFloat(diameterMax)) / 2).toFixed(2);
-      const diameterMeters = avgDiameter * 1000;
-      const density = asteroidDensities[i];
-      const volume = (4 / 3) * Math.PI * Math.pow(diameterMeters / 2, 3);
-      const mass = density * volume;
-      const velocity = data.close_approach_data?.[0]?.relative_velocity?.kilometers_per_second;
-      const isHazardous = data.is_potentially_hazardous_asteroid ? "Yes" : "No";
-
-      // === Build each prefab card ===
-      prefabHTML += `
-        <div class="prefab-card">
-          <div style="display: flex; align-items: center; gap: 1rem;">
-            <div style="flex: 1;">
-              <h4 style="color: #ffde59; margin: 0 0 0.5rem 0;">${name}</h4>
-              <p style="margin: 0.25rem 0; font-size: 0.9rem;">Diameter: ${avgDiameter} km</p>
-              <p style="margin: 0.25rem 0; font-size: 0.9rem;">Mass: ${mass.toExponential(3)} kg</p>
-              <p style="margin: 0.25rem 0; font-size: 0.9rem;">Density: ${density.toLocaleString()} kg/m³</p>
-              <p style="margin: 0.25rem 0; font-size: 0.9rem;">Velocity: ${
-                velocity ? parseFloat(velocity).toFixed(2) + " km/s" : "N/A"
-              }</p>
-              <p style="margin: 0.25rem 0; font-size: 0.9rem;">Hazardous: ${isHazardous}</p>
-            </div>
-            <button 
-              class="prefab-btn" 
-              data-size="${((avgDiameter  * 2)/12756).toFixed(3)}" 
-              data-density="${density}" 
-              data-name="${name}"
-              data-vel="${velocity}"
-              data-diameter="${avgDiameter}"
-           
-
-              >
-              Select
-            </button>
-          </div>
-        </div>
-      `;
-    }
-
-    prefabContainer.innerHTML = prefabHTML;
-
-    // === Add button event listeners ===
-    const prefabButtons = document.querySelectorAll(".prefab-btn");
-    prefabButtons.forEach(btn => {
-        // jsdbaksjvdas dgas johdhasgdj asdhasgdgaskt dasgdyuhasgdh asghdasj dghas ashgd hasgdhgaskjdashgdasjkhgd
-    btn.addEventListener("click", () => {
-    const name = btn.getAttribute("data-name");
-    const density = parseFloat(btn.getAttribute("data-density"));
-    const size = parseFloat(btn.getAttribute("data-size"));
-    const vel = parseFloat(btn.getAttribute("data-vel"));
-    const diameter = parseFloat(btn.getAttribute("data-diameter"));
-    //const energy = parseFloat(btn.getAttribute("data-energy"));
-    
-    // AGREGAR ESTAS LÍNEAS:
-    window.currentDensity = density;
-    window.currentVelocity = vel / 1000; // convertir de m/s a km/s
-    window.meteoriteSize = size;
-    window.currentDiamater = diameter;
-    //window.currentEnergy = energy;
-
-                        drawer.classList.remove('open');
-            overlay.classList.remove('active');
-setTimeout(() => {
-       constructor.classList.remove('active');
-            meteoriteGeometry.dispose();
-            meteoriteGeometry = new THREE.SphereGeometry(size, 32, 32);
-            meteorite.geometry = meteoriteGeometry;
-            deformConstructorMeteorite(0.2);
-            alaverga = true;
-            ipon.visible = true;
-}, 1000); 
-
-
-
-      });
-    });
-  }
-
- 
-  // ======= INIT =======
-  createPrefabAsteroids();
-</script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-    <script>
-        // UI Controls
+    <script type="module">
+        const GLOBAL_STATE = {
+            asteroidSize: 0.3,
+            asteroidDiameter: 300,
+            asteroidDensity: 2500,
+            asteroidVelocity: 20,
+            asteroidMass: 0,
+            asteroidEnergy: 0,
+            targetMode: false,
+            impactStage: 0,
+            impactPosition: null
+        };
+
+        function updateAsteroidData() {
+            const radius = GLOBAL_STATE.asteroidDiameter / 2;
+            const volume = (4 / 3) * Math.PI * Math.pow(radius, 3);
+            GLOBAL_STATE.asteroidMass = GLOBAL_STATE.asteroidDensity * volume;
+            GLOBAL_STATE.asteroidEnergy = 0.5 * GLOBAL_STATE.asteroidMass * Math.pow(GLOBAL_STATE.asteroidVelocity * 1000, 2) / 4.184e15;
+
+            document.getElementById('mass-value').textContent = GLOBAL_STATE.asteroidMass.toExponential(2) + ' kg';
+            document.getElementById('density-value').textContent = GLOBAL_STATE.asteroidDensity.toLocaleString() + ' kg/m³';
+            document.getElementById('velocity-value').textContent = GLOBAL_STATE.asteroidVelocity.toFixed(2) + ' km/s';
+            document.getElementById('diameter-value').textContent = (GLOBAL_STATE.asteroidDiameter / 1000).toFixed(2) + ' km';
+            document.getElementById('energy-value').textContent = GLOBAL_STATE.asteroidEnergy.toFixed(2) + ' MT';
+        }
+
+        const BASE_URL = "https://api.nasa.gov/neo/rest/v1";
+        const API_KEY = "cg7ceo2uoyo38vSTH5crqJbdjRrMVWUXMSYqJIWQ";
+
+        async function getAsteroidData(asteroid_id) {
+            try {
+                const response = await fetch(`${BASE_URL}/neo/${asteroid_id}?api_key=${API_KEY}`);
+                if (!response.ok) throw new Error("Network error");
+                return await response.json();
+            } catch (error) {
+                console.error("Failed to fetch asteroid data:", error);
+                return null;
+            }
+        }
+
+        const asteroids = [2101955, 2001620, 2004486];
+        const asteroidDensities = [1190, 2000, 1900];
+        const prefabContainer = document.getElementById('prefab-container');
+
+        async function createPrefabAsteroids() {
+            prefabContainer.innerHTML = "<p style='color:white;'>Loading prefab asteroids...</p>";
+
+            let prefabHTML = "";
+
+            for (let i = 0; i < asteroids.length; i++) {
+                const id = asteroids[i];
+                const data = await getAsteroidData(id);
+
+                if (!data) {
+                    prefabHTML += `<div class="prefab-card"><p style="color: red;">Failed to load asteroid ${id}</p></div>`;
+                    continue;
+                }
+
+                const name = data.name;
+                const diameterMin = data.estimated_diameter.kilometers.estimated_diameter_min;
+                const diameterMax = data.estimated_diameter.kilometers.estimated_diameter_max;
+                const avgDiameter = ((diameterMin + diameterMax) / 2) * 1000;
+                const density = asteroidDensities[i];
+                const velocity = parseFloat(data.close_approach_data?.[0]?.relative_velocity?.kilometers_per_second || 20);
+                const size = (avgDiameter / 12756) * 2;
+
+                prefabHTML += `
+                    <div class="prefab-card">
+                        <div style="display: flex; align-items: center; gap: 1rem;">
+                            <div style="flex: 1;">
+                                <h4 style="color: #ffde59; margin: 0 0 0.5rem 0;">${name}</h4>
+                                <p style="margin: 0.25rem 0; font-size: 0.9rem;">Diameter: ${(avgDiameter / 1000).toFixed(2)} km</p>
+                                <p style="margin: 0.25rem 0; font-size: 0.9rem;">Density: ${density.toLocaleString()} kg/m³</p>
+                                <p style="margin: 0.25rem 0; font-size: 0.9rem;">Velocity: ${velocity.toFixed(2)} km/s</p>
+                            </div>
+                            <button class="prefab-btn" data-size="${size}" data-density="${density}" data-name="${name}" data-vel="${velocity}" data-diameter="${avgDiameter}">Select</button>
+                        </div>
+                    </div>
+                `;
+            }
+
+            prefabContainer.innerHTML = prefabHTML;
+
+            document.querySelectorAll(".prefab-btn").forEach(btn => {
+                btn.addEventListener("click", () => {
+                    GLOBAL_STATE.asteroidSize = parseFloat(btn.getAttribute("data-size"));
+                    GLOBAL_STATE.asteroidDensity = parseFloat(btn.getAttribute("data-density"));
+                    GLOBAL_STATE.asteroidVelocity = parseFloat(btn.getAttribute("data-vel"));
+                    GLOBAL_STATE.asteroidDiameter = parseFloat(btn.getAttribute("data-diameter"));
+
+                    updateAsteroidData();
+
+                    meteoriteGeometry.dispose();
+                    meteoriteGeometry = new THREE.SphereGeometry(GLOBAL_STATE.asteroidSize, 32, 32);
+                    meteorite.geometry = meteoriteGeometry;
+                    deformMeteorite(meteoriteGeometry, GLOBAL_STATE.asteroidSize, 0.2);
+
+                    drawer.classList.remove('open');
+                    overlay.classList.remove('active');
+                    GLOBAL_STATE.targetMode = true;
+                    ipon.visible = true;
+                });
+            });
+        }
+
+        createPrefabAsteroids();
+
         const openBtn = document.getElementById('openDrawer');
         const closeBtn = document.getElementById('closeDrawer');
         const drawer = document.getElementById('drawer');
@@ -546,6 +535,9 @@ setTimeout(() => {
         const openConstructorBtn = document.getElementById('openConstructor');
         const constructor = document.getElementById('meteor-constructor');
         const launchBtn = document.getElementById('launchMeteor');
+        const resetBtn = document.getElementById('resetBtn');
+        const targetBtn = document.getElementById('targetBtn');
+        const nextBtn = document.getElementById('nextBtn');
 
         openBtn.addEventListener('click', () => {
             drawer.classList.add('open');
@@ -567,44 +559,29 @@ setTimeout(() => {
             drawer.classList.remove('open');
             overlay.classList.remove('active');
         });
-// Prefab asteroid buttons
-const prefabButtons = document.querySelectorAll('.prefab-btn');
-prefabButtons.forEach(button => {
-    button.addEventListener('click', () => {
-        const size = parseFloat(button.getAttribute('data-size'));
-        const density = parseFloat(button.getAttribute('data-density'));
-        const name = button.getAttribute('data-name');
-        const vel = button.getAttribute('data-vel');
-        const dia = button.getAttribute('data-diamater');
-        // Update meteorite size
-        meteoriteSize = size;
-        meteoriteGeometry.dispose();
-        meteoriteGeometry = new THREE.SphereGeometry(meteoriteSize, 32, 32);
-        meteorite.geometry = meteoriteGeometry;
-        
-        // Update data display
-        const diameter = dia;
-        const mass = Math.pow(diameter, 3) * (density / 1000);
-        const velocity = vel;
-        //const energy = 0.5 * mass * Math.pow(velocity, 2) / 4.184e15;
-        
-        document.getElementById('mass-value').textContent = mass.toExponential(2) + ' kg';
-        document.getElementById('density-value').textContent = (density / 1000).toFixed(2) + ' kg/m³';
-        document.getElementById('velocity-value').textContent = velocity + ' km/s';
-        document.getElementById('diameter-value').textContent = diameter.toFixed(0) + ' m';
-       // document.getElementById('energy-value').textContent = energy.toFixed(2) + ' MT';
-        
-        // Close drawer and activate targeting mode
-        drawer.classList.remove('open');
-        overlay.classList.remove('active');
-        alaverga = true;
-        ipon.visible = true;
-    });
-});
-        // Main Scene Setup
+
+        resetBtn.addEventListener('click', () => {
+            restaurarEsfera();
+            GLOBAL_STATE.impactStage = 0;
+            nextBtn.classList.remove('visible');
+            document.getElementById('impact-message').classList.remove('visible');
+        });
+
+        targetBtn.addEventListener('click', () => {
+            GLOBAL_STATE.targetMode = !GLOBAL_STATE.targetMode;
+            ipon.visible = GLOBAL_STATE.targetMode;
+            targetBtn.style.background = GLOBAL_STATE.targetMode ? 
+                'linear-gradient(135deg, #00ff00 0%, #00cc00 100%)' : 
+                'linear-gradient(135deg, #ff0066 0%, #cc0055 100%)';
+        });
+
+        nextBtn.addEventListener('click', () => {
+            advanceImpactStage();
+        });
+
         const scene = new THREE.Scene();
-        scene.background = new THREE.Color(0x000000);
-        scene.fog = new THREE.FogExp2(0x000000, 0.002);
+        scene.background = new THREE.Color(0x000511);
+        scene.fog = new THREE.FogExp2(0x000511, 0.001);
 
         const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
         camera.position.set(20, 0, 5);
@@ -616,8 +593,7 @@ prefabButtons.forEach(button => {
         renderer.shadowMap.type = THREE.PCFSoftShadowMap;
         document.body.appendChild(renderer.domElement);
 
-        // Earth
-        const earthGeometry = new THREE.SphereGeometry(2, 64, 64);
+        const earthGeometry = new THREE.SphereGeometry(2, 128, 128);
         const textureLoader = new THREE.TextureLoader();
         const earthTexture = textureLoader.load('https://raw.githubusercontent.com/mrdoob/three.js/dev/examples/textures/planets/earth_atmos_2048.jpg');
         const earthMaterial = new THREE.MeshStandardMaterial({
@@ -631,32 +607,30 @@ prefabButtons.forEach(button => {
         earth.receiveShadow = true;
         scene.add(earth);
 
-        // Atmosphere Glow
-        const atmosphereGeometry = new THREE.SphereGeometry(2.1, 64, 64);
+        const atmosphereGeometry = new THREE.SphereGeometry(2.15, 64, 64);
         const atmosphereMaterial = new THREE.ShaderMaterial({
             transparent: true,
             side: THREE.BackSide,
             vertexShader: `
-                    varying vec3 vNormal;
-                    void main() {
-                        vNormal = normalize(normalMatrix * normal);
-                        gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
-                    }
-                `,
+                varying vec3 vNormal;
+                void main() {
+                    vNormal = normalize(normalMatrix * normal);
+                    gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+                }
+            `,
             fragmentShader: `
-                    varying vec3 vNormal;
-                    void main() {
-                        float intensity = pow(0.6 - dot(vNormal, vec3(0.0, 0.0, 1.0)), 2.0);
-                        gl_FragColor = vec4(0.3, 0.6, 1.0, 1.0) * intensity;
-                    }
-                `
+                varying vec3 vNormal;
+                void main() {
+                    float intensity = pow(0.65 - dot(vNormal, vec3(0.0, 0.0, 1.0)), 2.5);
+                    gl_FragColor = vec4(0.3, 0.6, 1.0, 1.0) * intensity;
+                }
+            `
         });
         const atmosphere = new THREE.Mesh(atmosphereGeometry, atmosphereMaterial);
         atmosphere.position.copy(earth.position);
         scene.add(atmosphere);
 
-        // Lighting
-        const ambientLight = new THREE.AmbientLight(0xffffff, 1);
+        const ambientLight = new THREE.AmbientLight(0xffffff, 0.8);
         scene.add(ambientLight);
 
         const sunLight = new THREE.DirectionalLight(0xffffff, 1.5);
@@ -670,95 +644,110 @@ prefabButtons.forEach(button => {
         pointLight.position.set(-5, -5, 5);
         scene.add(pointLight);
 
-        // Stars with parallax
         const starsGeometry = new THREE.BufferGeometry();
         const starsVertices = [];
         const starsColors = [];
-        for (let i = 0; i < 3000; i++) {
+        for (let i = 0; i < 5000; i++) {
             starsVertices.push(
-                (Math.random() - 0.5) * 200,
-                (Math.random() - 0.5) * 200,
-                (Math.random() - 0.5) * 200
+                (Math.random() - 0.5) * 300,
+                (Math.random() - 0.5) * 300,
+                (Math.random() - 0.5) * 300
             );
-            const brightness = Math.random();
-            starsColors.push(brightness, brightness, brightness);
+            const brightness = 0.5 + Math.random() * 0.5;
+            const colorVariation = Math.random();
+            if (colorVariation > 0.7) {
+                starsColors.push(brightness, brightness * 0.8, brightness * 0.6);
+            } else {
+                starsColors.push(brightness, brightness, brightness);
+            }
         }
         starsGeometry.setAttribute('position', new THREE.Float32BufferAttribute(starsVertices, 3));
         starsGeometry.setAttribute('color', new THREE.Float32BufferAttribute(starsColors, 3));
         const starsMaterial = new THREE.PointsMaterial({
-            size: 0.1,
+            size: 0.15,
             vertexColors: true,
             transparent: true,
-            opacity: 0.8
+            opacity: 0.9
         });
         const stars = new THREE.Points(starsGeometry, starsMaterial);
         scene.add(stars);
 
-        // Meteorite with custom properties
-        let meteoriteSize = 0.3;
-       // let currentEnergy = 0;
+        const nebulaGeometry = new THREE.BufferGeometry();
+        const nebulaVertices = [];
+        const nebulaColors = [];
+        for (let i = 0; i < 1000; i++) {
+            nebulaVertices.push(
+                (Math.random() - 0.5) * 250,
+                (Math.random() - 0.5) * 250,
+                (Math.random() - 0.5) * 250
+            );
+            const r = 0.2 + Math.random() * 0.3;
+            const g = 0.1 + Math.random() * 0.2;
+            const b = 0.4 + Math.random() * 0.4;
+            nebulaColors.push(r, g, b);
+        }
+        nebulaGeometry.setAttribute('position', new THREE.Float32BufferAttribute(nebulaVertices, 3));
+        nebulaGeometry.setAttribute('color', new THREE.Float32BufferAttribute(nebulaColors, 3));
+        const nebulaMaterial = new THREE.PointsMaterial({
+            size: 3,
+            vertexColors: true,
+            transparent: true,
+            opacity: 0.3,
+            blending: THREE.AdditiveBlending
+        });
+        const nebula = new THREE.Points(nebulaGeometry, nebulaMaterial);
+        scene.add(nebula);
 
-
-let currentDensity = 2500; // valor por defecto
-let currentVelocity = 20;  // valor por defecto en km/s
-let currentDiamater = 0; //sfjwdofwdo
-
-
-
-
-        let meteoriteGeometry = new THREE.SphereGeometry(meteoriteSize, 32, 32);
+        let meteoriteGeometry = new THREE.SphereGeometry(GLOBAL_STATE.asteroidSize, 32, 32);
         let meteoriteMaterial = new THREE.MeshStandardMaterial({
-            color: 0xd8d8d8,
-            metalness: 0.4,
-            roughness: 0.9,
-            emissive: 0xffffff,
-            emissiveIntensity: 0.5
+            color: 0x666666,
+            metalness: 0.3,
+            roughness: 0.95,
+            emissive: 0x442200,
+            emissiveIntensity: 0.3
         });
         const meteorite = new THREE.Mesh(meteoriteGeometry, meteoriteMaterial);
         meteorite.visible = false;
         meteorite.castShadow = true;
         scene.add(meteorite);
 
-        // Meteorite Trail
         const trailGeometry = new THREE.BufferGeometry();
         const trailPositions = new Float32Array(300);
         trailGeometry.setAttribute('position', new THREE.BufferAttribute(trailPositions, 3));
         const trailMaterial = new THREE.LineBasicMaterial({
             color: 0xff6600,
             transparent: true,
-            opacity: 0.6
+            opacity: 0.8
         });
         const trail = new THREE.Line(trailGeometry, trailMaterial);
         trail.visible = false;
         scene.add(trail);
 
-        // Meteorite Light
         const meteoriteLight = new THREE.PointLight(0xff4400, 5, 20);
         meteoriteLight.visible = false;
         meteoriteLight.castShadow = true;
         scene.add(meteoriteLight);
 
-        // Particle System for explosion
         const particlesGeometry = new THREE.BufferGeometry();
-        const particlesCount = 500;
+        const particlesCount = 1000;
         const particlesPositions = new Float32Array(particlesCount * 3);
         const particlesVelocities = [];
 
-        for (let i = 0; i < particlesCount * 3; i += 3) {
+      for (let i = 0; i < particlesCount * 3; i += 3) {
             particlesPositions[i] = 0;
             particlesPositions[i + 1] = 0;
             particlesPositions[i + 2] = 0;
             particlesVelocities.push({
-                x: (Math.random() - 0.5) * 0.2,
-                y: (Math.random() - 0.5) * 0.2,
-                z: (Math.random() - 0.5) * 0.2
+                x: (Math.random() - 0.5) * 0.3,
+                y: (Math.random() - 0.5) * 0.3,
+                z: (Math.random() - 0.5) * 0.3
             });
         }
 
         particlesGeometry.setAttribute('position', new THREE.BufferAttribute(particlesPositions, 3));
         const particlesMaterial = new THREE.PointsMaterial({
             color: 0xff6600,
-            size: 0.1,
+            size: 0.15,
             transparent: true,
             opacity: 1,
             blending: THREE.AdditiveBlending
@@ -767,28 +756,6 @@ let currentDiamater = 0; //sfjwdofwdo
         particlesSystem.visible = false;
         scene.add(particlesSystem);
 
-        // Animation variables
-        let meteoriteActive = false;
-        let meteoriteProgress = 0;
-        let meteoriteStart = new THREE.Vector3();
-        let meteoriteTarget = new THREE.Vector3();
-        let cameraSequence = 'idle';
-        let sequenceProgress = 0;
-        let particlesActive = false;
-        let particlesLife = 0;
-
-        const shockwaves = [];
-        const tsunamiWaves = [];
-
-        // Camera states
-        const cameraStates = {
-            initial: { x: 20, y: 0, z: 5 },
-            current: { x: 20, y: 0, z: 5 },
-            target: { x: 20, y: 0, z: 5 }
-        };
-
-        // Controls UI
-        const botones = [];
         function crearIcono(tipo) {
             const canvas = document.createElement('canvas');
             canvas.width = 256;
@@ -799,17 +766,7 @@ let currentDiamater = 0; //sfjwdofwdo
             ctx.lineWidth = 20;
             ctx.lineCap = 'round';
 
-            if (tipo === 'reset') {
-                ctx.beginPath();
-                ctx.arc(128, 128, 80, 0.5, Math.PI * 2 - 0.5);
-                ctx.stroke();
-                ctx.beginPath();
-                ctx.moveTo(208, 128);
-                ctx.lineTo(180, 100);
-                ctx.lineTo(180, 156);
-                ctx.closePath();
-                ctx.fill();
-            } else if (tipo === 'pointer') {
+            if (tipo === 'pointer') {
                 ctx.beginPath();
                 ctx.arc(128, 128, 90, 0, Math.PI * 2);
                 ctx.stroke();
@@ -836,32 +793,6 @@ let currentDiamater = 0; //sfjwdofwdo
             return new THREE.CanvasTexture(canvas);
         }
 
-        function crearBoton(x, y, z, color, iconType, accion) {
-            const buttonGeometry = new THREE.CylinderGeometry(0.4, 0.4, 0.15, 32);
-            const buttonMaterial = new THREE.MeshStandardMaterial({
-                color: color,
-                metalness: 0.6,
-                roughness: 0.2,
-                emissive: color,
-                emissiveIntensity: 0.3
-            });
-            const boton = new THREE.Mesh(buttonGeometry, buttonMaterial);
-            boton.position.set(x, y, z);
-            boton.rotation.x = Math.PI / 2;
-            scene.add(boton);
-
-            const iconMaterial = new THREE.MeshBasicMaterial({
-                map: crearIcono(iconType),
-                transparent: true,
-                side: THREE.DoubleSide
-            });
-            const icon = new THREE.Mesh(new THREE.CircleGeometry(0.3, 32), iconMaterial);
-            icon.position.set(x, y, z + 0.08);
-            scene.add(icon);
-
-            botones.push({ mesh: boton, icon: icon, material: buttonMaterial, hovered: false, accion: accion });
-        }
-
         const iponMaterial = new THREE.MeshBasicMaterial({
             map: crearIcono('pointer'),
             transparent: true,
@@ -871,14 +802,50 @@ let currentDiamater = 0; //sfjwdofwdo
         ipon.visible = false;
         scene.add(ipon);
 
-        let alaverga = false;
         let mouseX = 0, mouseY = 0;
+        let meteoriteActive = false;
+        let meteoriteProgress = 0;
+        let meteoriteStart = new THREE.Vector3();
+        let meteoriteTarget = new THREE.Vector3();
+        let cameraSequence = 'idle';
+        let sequenceProgress = 0;
+        let particlesActive = false;
+        let particlesLife = 0;
+        let trailIndex = 0;
+
+        const shockwaves = [];
+        const tsunamiWaves = [];
+        const fireballs = [];
+
+        const cameraStates = {
+            initial: { x: 20, y: 0, z: 5 },
+            current: { x: 20, y: 0, z: 5 },
+            target: { x: 20, y: 0, z: 5 }
+        };
+
+        function deformMeteorite(geometry, size, amount) {
+            const positions = geometry.attributes.position;
+            for (let i = 0; i < positions.count; i++) {
+                const vertex = new THREE.Vector3();
+                vertex.fromBufferAttribute(positions, i);
+                const noise = (Math.random() - 0.5) * amount;
+                vertex.normalize();
+                vertex.multiplyScalar(size * (1 + noise));
+                positions.setXYZ(i, vertex.x, vertex.y, vertex.z);
+            }
+            positions.needsUpdate = true;
+            geometry.computeVertexNormals();
+        }
+
+        deformMeteorite(meteoriteGeometry, GLOBAL_STATE.asteroidSize, 0.2);
 
         function crearCrater(worldPoint) {
             const localPoint = earth.worldToLocal(worldPoint.clone());
             const positions = earthGeometry.attributes.position;
-            const craterRadius = meteoriteSize * 2;
-            const craterDepth = meteoriteSize * 1.5;
+            const colors = new Float32Array(positions.count * 3);
+            
+            const craterRadius = GLOBAL_STATE.asteroidSize * 2.5;
+            const craterDepth = GLOBAL_STATE.asteroidSize * 1.8;
 
             for (let i = 0; i < positions.count; i++) {
                 const vertex = new THREE.Vector3();
@@ -890,18 +857,36 @@ let currentDiamater = 0; //sfjwdofwdo
                     vertex.normalize();
                     vertex.multiplyScalar(2 - (factor * craterDepth));
                     positions.setXYZ(i, vertex.x, vertex.y, vertex.z);
+
+                    if (factor > 0.7) {
+                        colors[i * 3] = 0.8;
+                        colors[i * 3 + 1] = 0.2;
+                        colors[i * 3 + 2] = 0.1;
+                    } else if (factor > 0.4) {
+                        colors[i * 3] = 0.6;
+                        colors[i * 3 + 1] = 0.3;
+                        colors[i * 3 + 2] = 0.2;
+                    } else {
+                        colors[i * 3] = 0.4;
+                        colors[i * 3 + 1] = 0.3;
+                        colors[i * 3 + 2] = 0.2;
+                    }
+                } else {
+                    colors[i * 3] = 1;
+                    colors[i * 3 + 1] = 1;
+                    colors[i * 3 + 2] = 1;
                 }
             }
 
+            earthGeometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
+            earthMaterial.vertexColors = true;
             positions.needsUpdate = true;
             earthGeometry.computeVertexNormals();
 
-            // Update impact data
-            const impactEnergy = Math.pow(meteoriteSize * 1000, 3) * 0.5;
             const craterDiameterKm = (craterRadius * 6371) / 2;
             const craterDepthKm = (craterDepth * 6371) / 2;
-            const richter = Math.min(10, 5 + Math.log10(impactEnergy) * 0.5);
-            const tsunamiHeight = Math.min(100, impactEnergy * 0.001);
+            const richter = Math.min(10, 4 + Math.log10(GLOBAL_STATE.asteroidEnergy * 4.184e15) * 0.3);
+            const tsunamiHeight = Math.min(300, Math.pow(GLOBAL_STATE.asteroidEnergy, 0.4) * 10);
 
             document.getElementById('crater-depth').textContent = craterDepthKm.toFixed(2) + ' km';
             document.getElementById('crater-diameter').textContent = craterDiameterKm.toFixed(2) + ' km';
@@ -912,13 +897,13 @@ let currentDiamater = 0; //sfjwdofwdo
         function crearOndaChoque(position) {
             const localPosition = earth.worldToLocal(position.clone());
 
-            for (let i = 0; i < 5; i++) {
+            for (let i = 0; i < 6; i++) {
                 const ring = new THREE.Mesh(
-                    new THREE.RingGeometry(0.05, 0.1, 32),
+                    new THREE.RingGeometry(0.05, 0.12, 32),
                     new THREE.MeshBasicMaterial({
                         color: 0xff4400,
                         transparent: true,
-                        opacity: 0.9,
+                        opacity: 0.95,
                         side: THREE.DoubleSide,
                         blending: THREE.AdditiveBlending
                     })
@@ -933,69 +918,151 @@ let currentDiamater = 0; //sfjwdofwdo
                 shockwaves.push({
                     mesh: ring,
                     scale: 0.1,
-                    opacity: 0.9,
-                    speed: 0.15 - (i * 0.02),
-                    delay: i * 3
+                    opacity: 0.95,
+                    speed: 0.12 - (i * 0.015),
+                    delay: i * 2
                 });
-            }
-
-            // Tsunami waves
-            if (Math.random() > 0.3) {
-                for (let i = 0; i < 3; i++) {
-                    const waveGeometry = new THREE.TorusGeometry(0.1, 0.02, 16, 32);
-                    const waveMaterial = new THREE.MeshBasicMaterial({
-                        color: 0x00aaff,
-                        transparent: true,
-                        opacity: 0.7,
-                        blending: THREE.AdditiveBlending
-                    });
-                    const wave = new THREE.Mesh(waveGeometry, waveMaterial);
-                    wave.position.copy(localPosition);
-                    const direction = localPosition.clone().normalize();
-                    wave.lookAt(wave.position.clone().add(direction));
-                    earth.add(wave);
-
-                    tsunamiWaves.push({
-                        mesh: wave,
-                        scale: 0.1,
-                        opacity: 0.7,
-                        speed: 0.1,
-                        delay: i * 10
-                    });
-                }
             }
         }
 
-      function lanzarMeteorito(targetPos) {
-    meteoriteActive = true;
-    meteoriteProgress = 0;
+        function crearTsunami(position) {
+            const localPosition = earth.worldToLocal(position.clone());
+            
+            for (let i = 0; i < 4; i++) {
+                const waveGeometry = new THREE.TorusGeometry(0.1, 0.03, 16, 32);
+                const waveMaterial = new THREE.MeshBasicMaterial({
+                    color: 0x00aaff,
+                    transparent: true,
+                    opacity: 0.8,
+                    blending: THREE.AdditiveBlending
+                });
+                const wave = new THREE.Mesh(waveGeometry, waveMaterial);
+                wave.position.copy(localPosition);
+                const direction = localPosition.clone().normalize();
+                wave.lookAt(wave.position.clone().add(direction));
+                earth.add(wave);
 
-    const direction = targetPos.clone().normalize();
-    meteoriteStart.copy(direction).multiplyScalar(25);
-    meteoriteTarget.copy(targetPos);
+                tsunamiWaves.push({
+                    mesh: wave,
+                    scale: 0.1,
+                    opacity: 0.8,
+                    speed: 0.08,
+                    delay: i * 8
+                });
+            }
+        }
 
-    meteorite.position.copy(meteoriteStart);
-    meteorite.visible = true;
-    meteoriteLight.visible = true;
-    trail.visible = true;
+        function crearBolaDeFuego(position) {
+            for (let i = 0; i < 3; i++) {
+                const fireballGeometry = new THREE.SphereGeometry(0.1, 16, 16);
+                const fireballMaterial = new THREE.MeshBasicMaterial({
+                    color: 0xff6600,
+                    transparent: true,
+                    opacity: 0.9,
+                    blending: THREE.AdditiveBlending
+                });
+                const fireball = new THREE.Mesh(fireballGeometry, fireballMaterial);
+                fireball.position.copy(position);
+                scene.add(fireball);
 
-    cameraSequence = 'transition';
-    sequenceProgress = 0;
+                fireballs.push({
+                    mesh: fireball,
+                    scale: 0.1,
+                    opacity: 0.9,
+                    speed: 0.15,
+                    delay: i * 5,
+                    position: position.clone()
+                });
+            }
+        }
 
-    // Update meteor data display
-    const diameter = window.currentDiamater; // en metros
-    const density = window.currentDensity || 2500;
-    const velocity = window.currentVelocity || 20;
-    const volume = (4 / 3) * Math.PI * Math.pow(diameter / 2, 3);
-    const mass = (density * volume);
-    const energy = 0.5 * mass * Math.pow(velocity * 1000, 2) / 4.184e15; // convertir velocidad a m/s
-    
-    document.getElementById('mass-value').textContent = mass.toExponential(2) + ' kg';
-    document.getElementById('density-value').textContent = (density / 1000).toFixed(2) + ' kg/m³';
-    document.getElementById('velocity-value').textContent = velocity.toFixed(2) + ' km/s';
-    document.getElementById('diameter-value').textContent = diameter + ' km';
-   // document.getElementById('energy-value').textContent = energy + ' Joules';
-}
+        function advanceImpactStage() {
+            GLOBAL_STATE.impactStage++;
+            const messageEl = document.getElementById('impact-message');
+            messageEl.classList.add('visible');
+
+            switch (GLOBAL_STATE.impactStage) {
+                case 1:
+                    messageEl.innerHTML = `<strong>STAGE 1: INITIAL SHOCKWAVE</strong><br>
+                        The asteroid impact generates a massive shockwave that propagates through the Earth's crust at ${(GLOBAL_STATE.asteroidVelocity * 0.8).toFixed(1)} km/s. 
+                        The pressure wave compresses rocks and soil, creating seismic waves that will be felt thousands of kilometers away.`;
+                    crearOndaChoque(GLOBAL_STATE.impactPosition);
+                    break;
+                case 2:
+                    messageEl.innerHTML = `<strong>STAGE 2: SEISMIC ACTIVITY</strong><br>
+                        The impact triggers earthquakes measuring ${document.getElementById('seismic-value').textContent} on the Richter scale. 
+                        Ground shaking causes widespread structural damage. The seismic energy travels through Earth's interior as P-waves and S-waves.`;
+                    startEarthquake();
+                    break;
+                case 3:
+                    messageEl.innerHTML = `<strong>STAGE 3: FIREBALL EXPANSION</strong><br>
+                        A superheated fireball expands from the impact site, reaching temperatures of ${(GLOBAL_STATE.asteroidEnergy * 1000).toFixed(0)}°C. 
+                        The thermal radiation ignites fires within a ${(Math.sqrt(GLOBAL_STATE.asteroidEnergy) * 50).toFixed(0)} km radius. 
+                        Vaporized rock and debris are ejected into the atmosphere.`;
+                    crearBolaDeFuego(GLOBAL_STATE.impactPosition);
+                    break;
+                case 4:
+                    if (document.getElementById('tsunami-value').textContent !== '-- m') {
+                        messageEl.innerHTML = `<strong>STAGE 4: TSUNAMI GENERATION</strong><br>
+                            If the impact occurred in or near an ocean, tsunami waves ${document.getElementById('tsunami-value').textContent} high 
+                            propagate outward at speeds up to 800 km/h. Coastal regions face catastrophic flooding within hours.`;
+                        crearTsunami(GLOBAL_STATE.impactPosition);
+                    } else {
+                        messageEl.innerHTML = `<strong>STAGE 4: EJECTA BLANKET</strong><br>
+                            Material ejected from the crater falls back to Earth, creating a blanket of debris that buries the surrounding landscape. 
+                            Some ejecta reaches escape velocity and enters orbit around Earth.`;
+                    }
+                    break;
+                case 5:
+                    messageEl.innerHTML = `<strong>IMPACT COMPLETE</strong><br>
+                        Final crater depth: ${document.getElementById('crater-depth').textContent}<br>
+                        Final crater diameter: ${document.getElementById('crater-diameter').textContent}<br>
+                        Total energy released: ${GLOBAL_STATE.asteroidEnergy.toFixed(2)} MT (megatons of TNT)<br>
+                        The long-term effects include atmospheric dust blocking sunlight, potential mass extinctions, and geological changes lasting millions of years.`;
+                    GLOBAL_STATE.impactStage = 0;
+                    nextBtn.classList.remove('visible');
+                    setTimeout(() => {
+                        messageEl.classList.remove('visible');
+                    }, 10000);
+                    break;
+            }
+
+            if (GLOBAL_STATE.impactStage < 5) {
+                nextBtn.classList.add('visible');
+            }
+        }
+
+        let earthquakeIntensity = 0;
+        let earthquakeActive = false;
+
+        function startEarthquake() {
+            earthquakeActive = true;
+            earthquakeIntensity = 0.3;
+            setTimeout(() => {
+                earthquakeActive = false;
+            }, 5000);
+        }
+
+        function lanzarMeteorito(targetPos) {
+            meteoriteActive = true;
+            meteoriteProgress = 0;
+
+            const direction = targetPos.clone().normalize();
+            meteoriteStart.copy(direction).multiplyScalar(25);
+            meteoriteTarget.copy(targetPos);
+
+            meteorite.position.copy(meteoriteStart);
+            meteorite.visible = true;
+            meteoriteLight.visible = true;
+            trail.visible = true;
+
+            cameraSequence = 'transition';
+            sequenceProgress = 0;
+
+            GLOBAL_STATE.impactPosition = targetPos.clone();
+            updateAsteroidData();
+        }
+
         function restaurarEsfera() {
             const positions = earthGeometry.attributes.position;
             for (let i = 0; i < positions.count; i++) {
@@ -1005,26 +1072,42 @@ let currentDiamater = 0; //sfjwdofwdo
                 vertex.multiplyScalar(2);
                 positions.setXYZ(i, vertex.x, vertex.y, vertex.z);
             }
+            
+            if (earthGeometry.attributes.color) {
+                earthGeometry.deleteAttribute('color');
+            }
+            earthMaterial.vertexColors = false;
+            
             positions.needsUpdate = true;
             earthGeometry.computeVertexNormals();
 
-            // Clear impact data
             document.getElementById('crater-depth').textContent = '-- km';
             document.getElementById('crater-diameter').textContent = '-- km';
             document.getElementById('seismic-value').textContent = '-- Richter';
             document.getElementById('tsunami-value').textContent = '-- m';
+
+            shockwaves.forEach(wave => {
+                earth.remove(wave.mesh);
+                wave.mesh.geometry.dispose();
+                wave.mesh.material.dispose();
+            });
+            shockwaves.length = 0;
+
+            tsunamiWaves.forEach(wave => {
+                earth.remove(wave.mesh);
+                wave.mesh.geometry.dispose();
+                wave.mesh.material.dispose();
+            });
+            tsunamiWaves.length = 0;
+
+            fireballs.forEach(fireball => {
+                scene.remove(fireball.mesh);
+                fireball.mesh.geometry.dispose();
+                fireball.mesh.material.dispose();
+            });
+            fireballs.length = 0;
         }
 
-        function toggleTargetMode() {
-            alaverga = !alaverga;
-            ipon.visible = alaverga;
-            document.body.style.cursor = alaverga ? 'crosshair' : 'default';
-        }
-
-        crearBoton(-4, -2.5, 0, 0x00ffaa, 'reset', restaurarEsfera);
-        crearBoton(-2, -2.5, 0, 0xff0066, 'pointer', toggleTargetMode);
-
-        // Raycasting
         const raycaster = new THREE.Raycaster();
         const mouse = new THREE.Vector2();
 
@@ -1034,18 +1117,12 @@ let currentDiamater = 0; //sfjwdofwdo
 
             raycaster.setFromCamera(mouse, camera);
 
-            const buttonIntersects = raycaster.intersectObjects(botones.map(b => b.mesh));
-            if (buttonIntersects.length > 0) {
-                const boton = botones.find(b => b.mesh === buttonIntersects[0].object);
-                if (boton) {
-                    boton.accion();
-                    return;
-                }
-            }
-
             const intersects = raycaster.intersectObject(earth);
-            if (intersects.length > 0 && alaverga && !meteoriteActive) {
+            if (intersects.length > 0 && GLOBAL_STATE.targetMode && !meteoriteActive) {
                 lanzarMeteorito(intersects[0].point);
+                GLOBAL_STATE.targetMode = false;
+                ipon.visible = false;
+                targetBtn.style.background = 'linear-gradient(135deg, #ff0066 0%, #cc0055 100%)';
             }
         });
 
@@ -1055,18 +1132,8 @@ let currentDiamater = 0; //sfjwdofwdo
             mouse.x = mouseX;
             mouse.y = mouseY;
 
-            raycaster.setFromCamera(mouse, camera);
-            const buttonIntersects = raycaster.intersectObjects(botones.map(b => b.mesh));
-
-            let anyHovered = false;
-            botones.forEach(boton => {
-                boton.hovered = buttonIntersects.some(int => int.object === boton.mesh);
-                if (boton.hovered) anyHovered = true;
-            });
-
-            document.body.style.cursor = anyHovered ? 'pointer' : (alaverga ? 'crosshair' : 'default');
-
-            if (alaverga && !meteoriteActive) {
+            if (GLOBAL_STATE.targetMode && !meteoriteActive) {
+                raycaster.setFromCamera(mouse, camera);
                 const sphereIntersects = raycaster.intersectObject(earth);
                 if (sphereIntersects.length > 0) {
                     const point = sphereIntersects[0].point;
@@ -1079,7 +1146,6 @@ let currentDiamater = 0; //sfjwdofwdo
             }
         });
 
-        // Constructor Scene
         const constructorScene = new THREE.Scene();
         constructorScene.background = new THREE.Color(0x0a0a2e);
 
@@ -1090,62 +1156,29 @@ let currentDiamater = 0; //sfjwdofwdo
         constructorRenderer.setSize(600, 400);
         document.getElementById('three-container').appendChild(constructorRenderer.domElement);
 
-        // Constructor meteorite
-        let constructorMeteoriteSize = 0.3;
-        let constructorGeometry = new THREE.SphereGeometry(constructorMeteoriteSize, 64, 64);
+        let constructorGeometry = new THREE.SphereGeometry(GLOBAL_STATE.asteroidSize, 64, 64);
         let constructorMaterial = new THREE.MeshStandardMaterial({
-            color: 0x8B4513,
-            metalness: 0.4,
-            roughness: 0.9,
-            emissive: 0x8B4513,
+            color: 0x666666,
+            metalness: 0.3,
+            roughness: 0.95,
+            emissive: 0x442200,
             emissiveIntensity: 0.3
         });
         const constructorMeteorite = new THREE.Mesh(constructorGeometry, constructorMaterial);
         constructorScene.add(constructorMeteorite);
 
-        // Constructor lighting
         const constructorAmbient = new THREE.AmbientLight(0xffffff, 0.5);
         constructorScene.add(constructorAmbient);
         const constructorLight = new THREE.PointLight(0xffffff, 1);
         constructorLight.position.set(2, 2, 2);
         constructorScene.add(constructorLight);
 
-        // Glow layers for constructor
-        const constructorGlowLayers = [];
-        for (let i = 0; i < 2; i++) {
-            const scale = 1.15 + (i * 0.2);
-            const glowGeometry = new THREE.SphereGeometry(constructorMeteoriteSize * scale, 32, 32);
-            const glowMaterial = new THREE.MeshBasicMaterial({
-                color: new THREE.Color().setHSL(0.1, 0.7, 0.3),
-                transparent: true,
-                opacity: 0.3 - (i * 0.1),
-                side: THREE.BackSide,
-                depthWrite: false
-            });
-            const glowMesh = new THREE.Mesh(glowGeometry, glowMaterial);
-            constructorGlowLayers.push({ mesh: glowMesh, material: glowMaterial, baseScale: scale });
-            constructorScene.add(glowMesh);
-        }
+        deformMeteorite(constructorGeometry, GLOBAL_STATE.asteroidSize, 0.2);
 
-        function deformConstructorMeteorite(amount) {
-            const positions = constructorGeometry.attributes.position;
-            for (let i = 0; i < positions.count; i++) {
-                const vertex = new THREE.Vector3();
-                vertex.fromBufferAttribute(positions, i);
-                const noise = (Math.random() - 0.5) * amount;
-                vertex.normalize();
-                vertex.multiplyScalar(constructorMeteoriteSize * (1 + noise));
-                positions.setXYZ(i, vertex.x, vertex.y, vertex.z);
-            }
-            positions.needsUpdate = true;
-            constructorGeometry.computeVertexNormals();
-        }
-
-        deformConstructorMeteorite(0.2);
-
-        // Constructor controls
         const constructorControles = [];
-        function crearControlConstructor(angle, label, minVal, maxVal, defaultVal, callback) {
+        const controlLabels = [];
+
+        function crearControlConstructor(angle, label, unit, minVal, maxVal, defaultVal, callback) {
             const radius = 2;
             const x = Math.cos(angle) * radius;
             const y = Math.sin(angle) * radius;
@@ -1163,16 +1196,26 @@ let currentDiamater = 0; //sfjwdofwdo
             base.rotation.x = Math.PI / 2;
             constructorScene.add(base);
 
+            const labelDiv = document.createElement('div');
+            labelDiv.className = 'control-label';
+            labelDiv.style.left = `${300 + x * 100}px`;
+            labelDiv.style.top = `${200 - y * 100}px`;
+            labelDiv.textContent = `${label}: ${defaultVal.toFixed(2)} ${unit}`;
+            document.getElementById('three-container').appendChild(labelDiv);
+            controlLabels.push(labelDiv);
+
             constructorControles.push({
                 base: base,
                 material: baseMaterial,
                 label: label,
+                unit: unit,
                 value: defaultVal,
                 minVal: minVal,
                 maxVal: maxVal,
                 callback: callback,
                 hovered: false,
-                position: { x, y }
+                position: { x, y },
+                labelDiv: labelDiv
             });
         }
 
@@ -1180,35 +1223,27 @@ let currentDiamater = 0; //sfjwdofwdo
         const angleStep = (Math.PI * 2) / numControls;
         const startAngle = -Math.PI / 2;
 
-        crearControlConstructor(startAngle, 'SIZE', 0.2, 0.8, 0.3, (val) => {
-            constructorMeteoriteSize = val;
-            meteoriteSize = val;
+        crearControlConstructor(startAngle, 'DIAMETER', 'km', 0.1, 2, 0.3, (val) => {
+            GLOBAL_STATE.asteroidDiameter = val * 1000;
+            GLOBAL_STATE.asteroidSize = (val / 12.756) * 2;
             constructorScene.remove(constructorMeteorite);
-            constructorGlowLayers.forEach(layer => constructorScene.remove(layer.mesh));
             constructorGeometry.dispose();
 
-            constructorGeometry = new THREE.SphereGeometry(constructorMeteoriteSize, 64, 64);
+            constructorGeometry = new THREE.SphereGeometry(GLOBAL_STATE.asteroidSize, 64, 64);
             constructorMeteorite.geometry = constructorGeometry;
             constructorScene.add(constructorMeteorite);
 
-            constructorGlowLayers.forEach((layer, i) => {
-                const scale = layer.baseScale;
-                layer.mesh.geometry.dispose();
-                layer.mesh.geometry = new THREE.SphereGeometry(constructorMeteoriteSize * scale, 32, 32);
-                constructorScene.add(layer.mesh);
-            });
-
-            deformConstructorMeteorite(0.2);
+            deformMeteorite(constructorGeometry, GLOBAL_STATE.asteroidSize, 0.2);
         });
 
-        crearControlConstructor(startAngle + angleStep, 'ROUGH', 0.5, 1, 0.9, (val) => {
-            constructorMaterial.roughness = val;
-            meteoriteMaterial.roughness = val;
+        crearControlConstructor(startAngle + angleStep, 'DENSITY', 'kg/m³', 1000, 5000, 2500, (val) => {
+            GLOBAL_STATE.asteroidDensity = val;
         });
 
-        crearControlConstructor(startAngle + angleStep * 2, 'GLOW', 0, 1, 0.3, (val) => {
-            constructorMaterial.emissiveIntensity = val;
-            meteoriteMaterial.emissiveIntensity = val;
+        crearControlConstructor(startAngle + angleStep * 2, 'VELOCITY', 'km/s', 10, 70, 20, (val) => {
+            GLOBAL_STATE.asteroidVelocity = val;
+            constructorMaterial.emissiveIntensity = 0.1 + (val / 70) * 0.6;
+            meteoriteMaterial.emissiveIntensity = 0.1 + (val / 70) * 0.6;
         });
 
         const constructorRaycaster = new THREE.Raycaster();
@@ -1235,6 +1270,7 @@ let currentDiamater = 0; //sfjwdofwdo
                 draggedControl.value = Math.max(draggedControl.minVal,
                     Math.min(draggedControl.maxVal, draggedControl.value + change));
                 draggedControl.callback(draggedControl.value);
+                draggedControl.labelDiv.textContent = `${draggedControl.label}: ${draggedControl.value.toFixed(2)} ${draggedControl.unit}`;
             }
         });
 
@@ -1255,16 +1291,15 @@ let currentDiamater = 0; //sfjwdofwdo
         launchBtn.addEventListener('click', () => {
             constructor.classList.remove('active');
             meteoriteGeometry.dispose();
-            meteoriteGeometry = new THREE.SphereGeometry(meteoriteSize, 32, 32);
+            meteoriteGeometry = new THREE.SphereGeometry(GLOBAL_STATE.asteroidSize, 32, 32);
             meteorite.geometry = meteoriteGeometry;
-            deformConstructorMeteorite(0.2);
-            alaverga = true;
+            deformMeteorite(meteoriteGeometry, GLOBAL_STATE.asteroidSize, 0.2);
+            GLOBAL_STATE.targetMode = true;
             ipon.visible = true;
+            updateAsteroidData();
         });
 
-        // Animation loop
         const clock = new THREE.Clock();
-        let trailIndex = 0;
 
         function easeOutCubic(t) {
             return 1 - Math.pow(1 - t, 3);
@@ -1274,18 +1309,8 @@ let currentDiamater = 0; //sfjwdofwdo
             requestAnimationFrame(animate);
             const delta = clock.getDelta();
 
-            // Constructor scene animation
             constructorMeteorite.rotation.x += 0.005;
             constructorMeteorite.rotation.y += 0.007;
-
-            constructorGlowLayers.forEach((layer, i) => {
-                const time = Date.now() * 0.001;
-                const pulse = 1 + Math.sin(time * 1.5 + i * 0.5) * 0.02;
-                const scale = constructorMeteoriteSize * layer.baseScale * pulse;
-                layer.mesh.scale.set(scale, scale, scale);
-                layer.mesh.rotation.x = constructorMeteorite.rotation.x;
-                layer.mesh.rotation.y = constructorMeteorite.rotation.y;
-            });
 
             constructorControles.forEach(control => {
                 const scale = control.hovered ? 1.2 : 1;
@@ -1295,15 +1320,12 @@ let currentDiamater = 0; //sfjwdofwdo
 
             constructorRenderer.render(constructorScene, constructorCamera);
 
-            // Main scene animation
             if (meteoriteActive) {
                 meteoriteProgress += delta * 0.3;
 
                 if (meteoriteProgress >= 1) {
                     crearCrater(meteoriteTarget);
-                    crearOndaChoque(meteoriteTarget);
-
-                    // Activate particles
+                    
                     particlesActive = true;
                     particlesLife = 0;
                     particlesSystem.visible = true;
@@ -1313,16 +1335,18 @@ let currentDiamater = 0; //sfjwdofwdo
                     meteoriteLight.visible = false;
                     trail.visible = false;
                     meteoriteActive = false;
-                    alaverga = false;
-                    ipon.visible = false;
+
+                    GLOBAL_STATE.impactStage = 0;
+                    nextBtn.classList.add('visible');
+                    advanceImpactStage();
                 } else {
                     meteorite.position.lerpVectors(meteoriteStart, meteoriteTarget, meteoriteProgress);
                     meteoriteLight.position.copy(meteorite.position);
                     meteorite.rotation.x += 0.1;
                     meteorite.rotation.y += 0.15;
-                    meteoriteLight.intensity = 5 + meteoriteProgress * 15;
+                    meteoriteLight.intensity = 5 + meteoriteProgress * 20;
+                    meteoriteLight.color.setHSL(0.1, 1, 0.5 + meteoriteProgress * 0.3);
 
-                    // Update trail
                     const positions = trail.geometry.attributes.position.array;
                     positions[trailIndex * 3] = meteorite.position.x;
                     positions[trailIndex * 3 + 1] = meteorite.position.y;
@@ -1332,7 +1356,6 @@ let currentDiamater = 0; //sfjwdofwdo
                 }
             }
 
-            // Particles
             if (particlesActive) {
                 particlesLife += delta;
                 const positions = particlesGeometry.attributes.position.array;
@@ -1342,19 +1365,18 @@ let currentDiamater = 0; //sfjwdofwdo
                     positions[i3] += particlesVelocities[i].x;
                     positions[i3 + 1] += particlesVelocities[i].y;
                     positions[i3 + 2] += particlesVelocities[i].z;
-                    particlesVelocities[i].y -= 0.001;
+                    particlesVelocities[i].y -= 0.002;
                 }
 
                 particlesGeometry.attributes.position.needsUpdate = true;
-                particlesMaterial.opacity = Math.max(0, 1 - particlesLife);
+                particlesMaterial.opacity = Math.max(0, 1 - particlesLife * 0.5);
 
-                if (particlesLife > 2) {
+                if (particlesLife > 3) {
                     particlesActive = false;
                     particlesSystem.visible = false;
                 }
             }
 
-            // Camera sequences
             if (cameraSequence === 'transition') {
                 const transitionDuration = 80;
                 if (sequenceProgress < transitionDuration) {
@@ -1383,7 +1405,7 @@ let currentDiamater = 0; //sfjwdofwdo
                     sequenceProgress = 0;
                 }
                 sequenceProgress++;
-            } else if (cameraSequence === 'reset') {
+          } else if (cameraSequence === 'reset') {
                 const t = easeOutCubic(Math.min(sequenceProgress / 60, 1));
                 cameraStates.target.x = cameraStates.current.x + (cameraStates.initial.x - cameraStates.current.x) * t;
                 cameraStates.target.y = cameraStates.current.y + (cameraStates.initial.y - cameraStates.current.y) * t;
@@ -1407,7 +1429,18 @@ let currentDiamater = 0; //sfjwdofwdo
                 camera.position.set(cameraStates.current.x, cameraStates.current.y, cameraStates.current.z);
             }
 
-            // Shockwaves
+            if (earthquakeActive) {
+                const shake = Math.sin(Date.now() * 0.05) * earthquakeIntensity;
+                earth.position.x = -2 + shake * 0.1;
+                earth.position.y = shake * 0.05;
+                atmosphere.position.copy(earth.position);
+                earthquakeIntensity *= 0.99;
+            } else {
+                earth.position.x = -2;
+                earth.position.y = 0;
+                atmosphere.position.copy(earth.position);
+            }
+
             for (let i = shockwaves.length - 1; i >= 0; i--) {
                 const wave = shockwaves[i];
                 if (wave.delay > 0) {
@@ -1415,7 +1448,7 @@ let currentDiamater = 0; //sfjwdofwdo
                     continue;
                 }
                 wave.scale += wave.speed;
-                wave.opacity -= 0.01;
+                wave.opacity -= 0.012;
                 wave.mesh.scale.set(wave.scale, wave.scale, 1);
                 wave.mesh.material.opacity = wave.opacity;
 
@@ -1427,7 +1460,6 @@ let currentDiamater = 0; //sfjwdofwdo
                 }
             }
 
-            // Tsunami waves
             for (let i = tsunamiWaves.length - 1; i >= 0; i--) {
                 const wave = tsunamiWaves[i];
                 if (wave.delay > 0) {
@@ -1435,7 +1467,7 @@ let currentDiamater = 0; //sfjwdofwdo
                     continue;
                 }
                 wave.scale += wave.speed;
-                wave.opacity -= 0.005;
+                wave.opacity -= 0.006;
                 wave.mesh.scale.set(wave.scale, wave.scale, wave.scale);
                 wave.mesh.material.opacity = wave.opacity;
 
@@ -1447,29 +1479,40 @@ let currentDiamater = 0; //sfjwdofwdo
                 }
             }
 
-            // Buttons
-            botones.forEach(b => {
-                const scale = b.hovered ? 1.1 : 1;
-                b.mesh.scale.lerp(new THREE.Vector3(scale, scale, scale), 0.1);
-                b.icon.scale.lerp(new THREE.Vector3(scale, scale, scale), 0.1);
-                b.material.emissiveIntensity = b.hovered ? 0.5 : 0.3;
-                b.icon.rotation.z += 0.01;
-            });
+            for (let i = fireballs.length - 1; i >= 0; i--) {
+                const fireball = fireballs[i];
+                if (fireball.delay > 0) {
+                    fireball.delay--;
+                    continue;
+                }
+                fireball.scale += fireball.speed;
+                fireball.opacity -= 0.008;
+                fireball.mesh.scale.set(fireball.scale, fireball.scale, fireball.scale);
+                fireball.mesh.material.opacity = fireball.opacity;
+                fireball.mesh.material.color.setHSL(0.08, 1, 0.5 + (1 - fireball.opacity) * 0.3);
 
-            // Target indicator
+                if (fireball.opacity <= 0) {
+                    scene.remove(fireball.mesh);
+                    fireball.mesh.geometry.dispose();
+                    fireball.mesh.material.dispose();
+                    fireballs.splice(i, 1);
+                }
+            }
+
             if (ipon.visible) {
                 ipon.rotation.z += 0.02;
                 const pulse = 1 + Math.sin(Date.now() * 0.005) * 0.15;
                 ipon.scale.set(pulse, pulse, pulse);
             }
 
-            // Earth rotation
-            earth.rotation.y += 0.001;
-            atmosphere.rotation.y += 0.001;
+            earth.rotation.y += 0.0008;
+            atmosphere.rotation.y += 0.0008;
 
-            // Stars
             stars.rotation.y += 0.0002;
             stars.rotation.x += 0.0001;
+
+            nebula.rotation.y -= 0.0001;
+            nebula.rotation.x += 0.00005;
 
             renderer.render(scene, camera);
         }
