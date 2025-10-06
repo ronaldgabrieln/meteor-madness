@@ -100,6 +100,7 @@
 
             .drawer.open {
                 transform: translateX(0);
+                overflow: auto;
             }
 
         .drawer-header {
@@ -351,43 +352,7 @@
         <h3 style="color: #ffde59; margin-top: 2rem; margin-bottom: 1rem; text-align: center;">PREFAB ASTEROIDS</h3>
         
         <div style="display: grid; grid-template-columns: 1fr; gap: 1rem;">
-            <!-- Bennu -->
-            <div class="prefab-card">
-                <div style="display: flex; align-items: center; gap: 1rem;">
-                    <div style="flex: 1;">
-                        <h4 style="color: #ffde59; margin: 0 0 0.5rem 0;"></h4>
-                        <p style="margin: 0.25rem 0; font-size: 0.9rem;">Diameter: 0.49 km</p>
-                        <p style="margin: 0.25rem 0; font-size: 0.9rem;">Mass: 7.3×10¹⁰ kg</p>
-                        <p style="margin: 0.25rem 0; font-size: 0.9rem;">Density: 1,190 kg/m³</p>
-                    </div>
-                    <button class="prefab-btn" data-size="0.245" data-density="1190" data-name="Bennu">Select</button>
-                </div>
-            </div>
-            
-            <!-- Geographos -->
-            <div class="prefab-card">
-                <div style="display: flex; align-items: center; gap: 1rem;">
-                    <div style="flex: 1;">
-                        <h4 style="color: #ffde59; margin: 0 0 0.5rem 0;">1620 Geographos</h4>
-                        <p style="margin: 0.25rem 0; font-size: 0.9rem;">Diameter: 2.53 km</p>
-                        <p style="margin: 0.25rem 0; font-size: 0.9rem;">Mass: 3.8×10¹³ kg</p>
-                        <p style="margin: 0.25rem 0; font-size: 0.9rem;">Density: 2,000 kg/m³</p>
-                    </div>
-                    <button class="prefab-btn" data-size="0.4" data-density="2000" data-name="Geographos">Select</button>
-                </div>
-            </div>
-            
-            <!-- Mithra -->
-            <div class="prefab-card">
-                <div style="display: flex; align-items: center; gap: 1rem;">
-                    <div style="flex: 1;">
-                        <h4 style="color: #ffde59; margin: 0 0 0.5rem 0;">4486 Mithra</h4>
-                        <p style="margin: 0.25rem 0; font-size: 0.9rem;">Diameter: 1.60 km</p>
-                        <p style="margin: 0.25rem 0; font-size: 0.9rem;">Mass: 6.2×10¹² kg</p>
-                        <p style="margin: 0.25rem 0; font-size: 0.9rem;">Density: 1,900 kg/m³</p>
-                    </div>
-                    <button class="prefab-btn" data-size="0.32" data-density="1900" data-name="Mithra">Select</button>
-                </div>
+   
             </div>
         </div>
     </div>
@@ -402,7 +367,7 @@
             </div>
             <div class="data-item">
                 <span class="data-label">Density:</span>
-                <span class="data-value" id="density-value">0 g/cm³</span>
+                <span class="data-value" id="density-value">0 kg/m³</span>
             </div>
             <div class="data-item">
                 <span class="data-label">Velocity:</span>
@@ -412,10 +377,10 @@
                 <span class="data-label">Diameter:</span>
                 <span class="data-value" id="diameter-value">0 m</span>
             </div>
-            <div class="data-item">
-                <span class="data-label">Energy:</span>
-                <span class="data-value" id="energy-value">0 MT</span>
-            </div>
+            <!--<div class="data-item">
+               <span class="data-label">Energy:</span>
+             <span class="data-value" id="energy-value">0 MT</span>
+            </div>-->
         </div>
 
         <h2>IMPACT DATA</h2>
@@ -512,9 +477,14 @@
             </div>
             <button 
               class="prefab-btn" 
-              data-size="${(avgDiameter / 2).toFixed(3)}" 
+              data-size="${((avgDiameter  * 2)/12756).toFixed(3)}" 
               data-density="${density}" 
-              data-name="${name}">
+              data-name="${name}"
+              data-vel="${velocity}"
+              data-diameter="${avgDiameter}"
+           
+
+              >
               Select
             </button>
           </div>
@@ -527,15 +497,41 @@
     // === Add button event listeners ===
     const prefabButtons = document.querySelectorAll(".prefab-btn");
     prefabButtons.forEach(btn => {
-      btn.addEventListener("click", () => {
-        const name = btn.getAttribute("data-name");
-        const density = btn.getAttribute("data-density");
-        const size = btn.getAttribute("data-size");
-        alert(`✅ Selected ${name}\nSize: ${size} km\nDensity: ${density} kg/m³`);
+        // jsdbaksjvdas dgas johdhasgdj asdhasgdgaskt dasgdyuhasgdh asghdasj dghas ashgd hasgdhgaskjdashgdasjkhgd
+    btn.addEventListener("click", () => {
+    const name = btn.getAttribute("data-name");
+    const density = parseFloat(btn.getAttribute("data-density"));
+    const size = parseFloat(btn.getAttribute("data-size"));
+    const vel = parseFloat(btn.getAttribute("data-vel"));
+    const diameter = parseFloat(btn.getAttribute("data-diameter"));
+    //const energy = parseFloat(btn.getAttribute("data-energy"));
+    
+    // AGREGAR ESTAS LÍNEAS:
+    window.currentDensity = density;
+    window.currentVelocity = vel / 1000; // convertir de m/s a km/s
+    window.meteoriteSize = size;
+    window.currentDiamater = diameter;
+    //window.currentEnergy = energy;
+
+                        drawer.classList.remove('open');
+            overlay.classList.remove('active');
+setTimeout(() => {
+       constructor.classList.remove('active');
+            meteoriteGeometry.dispose();
+            meteoriteGeometry = new THREE.SphereGeometry(size, 32, 32);
+            meteorite.geometry = meteoriteGeometry;
+            deformConstructorMeteorite(0.2);
+            alaverga = true;
+            ipon.visible = true;
+}, 1000); 
+
+
+
       });
     });
   }
 
+ 
   // ======= INIT =======
   createPrefabAsteroids();
 </script>
@@ -578,7 +574,8 @@ prefabButtons.forEach(button => {
         const size = parseFloat(button.getAttribute('data-size'));
         const density = parseFloat(button.getAttribute('data-density'));
         const name = button.getAttribute('data-name');
-        
+        const vel = button.getAttribute('data-vel');
+        const dia = button.getAttribute('data-diamater');
         // Update meteorite size
         meteoriteSize = size;
         meteoriteGeometry.dispose();
@@ -586,21 +583,21 @@ prefabButtons.forEach(button => {
         meteorite.geometry = meteoriteGeometry;
         
         // Update data display
-        const diameter = meteoriteSize * 2000;
+        const diameter = dia;
         const mass = Math.pow(diameter, 3) * (density / 1000);
-        const velocity = 20;
-        const energy = 0.5 * mass * Math.pow(velocity, 2) / 4.184e15;
+        const velocity = vel;
+        //const energy = 0.5 * mass * Math.pow(velocity, 2) / 4.184e15;
         
         document.getElementById('mass-value').textContent = mass.toExponential(2) + ' kg';
-        document.getElementById('density-value').textContent = (density / 1000).toFixed(2) + ' g/cm³';
+        document.getElementById('density-value').textContent = (density / 1000).toFixed(2) + ' kg/m³';
         document.getElementById('velocity-value').textContent = velocity + ' km/s';
         document.getElementById('diameter-value').textContent = diameter.toFixed(0) + ' m';
-        document.getElementById('energy-value').textContent = energy.toFixed(2) + ' MT';
+       // document.getElementById('energy-value').textContent = energy.toFixed(2) + ' MT';
         
         // Close drawer and activate targeting mode
         drawer.classList.remove('open');
         overlay.classList.remove('active');
-        varfix = true;
+        alaverga = true;
         ipon.visible = true;
     });
 });
@@ -699,6 +696,16 @@ prefabButtons.forEach(button => {
 
         // Meteorite with custom properties
         let meteoriteSize = 0.3;
+       // let currentEnergy = 0;
+
+
+let currentDensity = 2500; // valor por defecto
+let currentVelocity = 20;  // valor por defecto en km/s
+let currentDiamater = 0; //sfjwdofwdo
+
+
+
+
         let meteoriteGeometry = new THREE.SphereGeometry(meteoriteSize, 32, 32);
         let meteoriteMaterial = new THREE.MeshStandardMaterial({
             color: 0xd8d8d8,
@@ -864,7 +871,7 @@ prefabButtons.forEach(button => {
         ipon.visible = false;
         scene.add(ipon);
 
-        let varfix = false;
+        let alaverga = false;
         let mouseX = 0, mouseY = 0;
 
         function crearCrater(worldPoint) {
@@ -959,35 +966,36 @@ prefabButtons.forEach(button => {
             }
         }
 
-        function lanzarMeteorito(targetPos) {
-            meteoriteActive = true;
-            meteoriteProgress = 0;
+      function lanzarMeteorito(targetPos) {
+    meteoriteActive = true;
+    meteoriteProgress = 0;
 
-            const direction = targetPos.clone().normalize();
-            meteoriteStart.copy(direction).multiplyScalar(25);
-            meteoriteTarget.copy(targetPos);
+    const direction = targetPos.clone().normalize();
+    meteoriteStart.copy(direction).multiplyScalar(25);
+    meteoriteTarget.copy(targetPos);
 
-            meteorite.position.copy(meteoriteStart);
-            meteorite.visible = true;
-            meteoriteLight.visible = true;
-            trail.visible = true;
+    meteorite.position.copy(meteoriteStart);
+    meteorite.visible = true;
+    meteoriteLight.visible = true;
+    trail.visible = true;
 
-            cameraSequence = 'transition';
-            sequenceProgress = 0;
+    cameraSequence = 'transition';
+    sequenceProgress = 0;
 
-            // Update meteor data display
-            const diameter = meteoriteSize * 2000;
-            const mass = Math.pow(diameter, 3) * 2.5;
-            const velocity = 20;
-            const energy = 0.5 * mass * Math.pow(velocity, 2) / 4.184e15;
-
-            document.getElementById('mass-value').textContent = mass.toExponential(2) + ' kg';
-            document.getElementById('density-value').textContent = '2.5 g/cm³';
-            document.getElementById('velocity-value').textContent = velocity + ' km/s';
-            document.getElementById('diameter-value').textContent = diameter.toFixed(0) + ' m';
-            document.getElementById('energy-value').textContent = energy.toFixed(2) + ' MT';
-        }
-
+    // Update meteor data display
+    const diameter = window.currentDiamater; // en metros
+    const density = window.currentDensity || 2500;
+    const velocity = window.currentVelocity || 20;
+    const volume = (4 / 3) * Math.PI * Math.pow(diameter / 2, 3);
+    const mass = (density * volume);
+    const energy = 0.5 * mass * Math.pow(velocity * 1000, 2) / 4.184e15; // convertir velocidad a m/s
+    
+    document.getElementById('mass-value').textContent = mass.toExponential(2) + ' kg';
+    document.getElementById('density-value').textContent = (density / 1000).toFixed(2) + ' kg/m³';
+    document.getElementById('velocity-value').textContent = velocity.toFixed(2) + ' km/s';
+    document.getElementById('diameter-value').textContent = diameter + ' km';
+   // document.getElementById('energy-value').textContent = energy + ' Joules';
+}
         function restaurarEsfera() {
             const positions = earthGeometry.attributes.position;
             for (let i = 0; i < positions.count; i++) {
@@ -1008,9 +1016,9 @@ prefabButtons.forEach(button => {
         }
 
         function toggleTargetMode() {
-            varfix = !varfix;
-            ipon.visible = varfix;
-            document.body.style.cursor = varfix ? 'crosshair' : 'default';
+            alaverga = !alaverga;
+            ipon.visible = alaverga;
+            document.body.style.cursor = alaverga ? 'crosshair' : 'default';
         }
 
         crearBoton(-4, -2.5, 0, 0x00ffaa, 'reset', restaurarEsfera);
@@ -1036,7 +1044,7 @@ prefabButtons.forEach(button => {
             }
 
             const intersects = raycaster.intersectObject(earth);
-            if (intersects.length > 0 && varfix && !meteoriteActive) {
+            if (intersects.length > 0 && alaverga && !meteoriteActive) {
                 lanzarMeteorito(intersects[0].point);
             }
         });
@@ -1056,9 +1064,9 @@ prefabButtons.forEach(button => {
                 if (boton.hovered) anyHovered = true;
             });
 
-            document.body.style.cursor = anyHovered ? 'pointer' : (varfix ? 'crosshair' : 'default');
+            document.body.style.cursor = anyHovered ? 'pointer' : (alaverga ? 'crosshair' : 'default');
 
-            if (varfix && !meteoriteActive) {
+            if (alaverga && !meteoriteActive) {
                 const sphereIntersects = raycaster.intersectObject(earth);
                 if (sphereIntersects.length > 0) {
                     const point = sphereIntersects[0].point;
@@ -1250,7 +1258,7 @@ prefabButtons.forEach(button => {
             meteoriteGeometry = new THREE.SphereGeometry(meteoriteSize, 32, 32);
             meteorite.geometry = meteoriteGeometry;
             deformConstructorMeteorite(0.2);
-            varfix = true;
+            alaverga = true;
             ipon.visible = true;
         });
 
@@ -1305,7 +1313,7 @@ prefabButtons.forEach(button => {
                     meteoriteLight.visible = false;
                     trail.visible = false;
                     meteoriteActive = false;
-                    varfix = false;
+                    alaverga = false;
                     ipon.visible = false;
                 } else {
                     meteorite.position.lerpVectors(meteoriteStart, meteoriteTarget, meteoriteProgress);
