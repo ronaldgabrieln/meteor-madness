@@ -1,14 +1,33 @@
-# LOS CARBONES
-Welcome to "Los carbones" NASA Space Apps 2025 submission "Defender"
+# 🌌 Los Carbones
 
-Defender is a website designed to educate with an interactive visualization and simulation tool that uses real data to help users model meteor impact scenarios, predict consequences, and evaluate potential mitigation strategies. It also includes a built-in AI chatbot named Cartonso to better help the education process and resolve common doubts people could have, enticing their curiosity with its intuitive and simple interface, and inspiring them to look for more; not only building a creative educational branch to start-up future engineers and scientists, but helping already working scientists to evaluate procedures and simulate real-life cases.
+Welcome to **Los Carbones** — NASA Space Apps 2025 submission: **Defender** 🚀  
 
-# NOTE
-To run successfully by cloning the user must
-Run in powershell:
-- npm install
-- npm run dev
-Run in bash:
-- node cartonso.js
+---
 
-Thats it!
+## 🛰️ About the Project
+
+**Defender** is an educational website that features an **interactive visualization and simulation tool** powered by real data.  
+It helps users:
+
+- Model **meteor impact scenarios**
+- **Predict** possible consequences
+- **Evaluate** potential mitigation strategies
+
+It also includes a built-in AI chatbot named **Cartonso**, designed to:
+
+- Enhance the learning experience  
+- Answer common questions  
+- Spark curiosity through an intuitive and simple interface  
+
+This platform not only fosters creativity among **future engineers and scientists**, but also provides **professionals** with a practical tool to evaluate procedures and simulate real-world cases.
+
+---
+
+## ⚙️ Installation & Setup
+
+To run the project successfully after cloning the repository:
+
+### On PowerShell:
+```bash
+npm install
+npm run dev
