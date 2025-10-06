@@ -31,3 +31,9 @@ To run the project successfully after cloning the repository:
 ```bash
 npm install
 npm run dev
+
+```
+### On bash:
+```bash
+node cartonso.js
+```
