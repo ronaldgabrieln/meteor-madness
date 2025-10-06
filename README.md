@@ -1,16 +1,39 @@
-# React + Vite
+# 🌌 Los Carbones
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Welcome to **Los Carbones** — NASA Space Apps 2025 submission: **Defender** 🚀  
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🛰️ About the Project
 
-## React Compiler
+**Defender** is an educational website that features an **interactive visualization and simulation tool** powered by real data.  
+It helps users:
 
-The React Compiler is not enabled on this template. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- Model **meteor impact scenarios**
+- **Predict** possible consequences
+- **Evaluate** potential mitigation strategies
 
-## Expanding the ESLint configuration
+It also includes a built-in AI chatbot named **Cartonso**, designed to:
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- Enhance the learning experience  
+- Answer common questions  
+- Spark curiosity through an intuitive and simple interface  
+
+This platform not only fosters creativity among **future engineers and scientists**, but also provides **professionals** with a practical tool to evaluate procedures and simulate real-world cases.
+
+---
+
+## ⚙️ Installation & Setup
+
+To run the project successfully after cloning the repository:
+
+### On PowerShell:
+```bash
+npm install
+npm run dev
+
+```
+### On bash:
+```bash
+node cartonso.js
+```
