@@ -1,16 +1,14 @@
-# React + Vite
+# LOS CARBONES
+Welcome to "Los carbones" NASA Space Apps 2025 submission "Defender"
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Defender is a website designed to educate with an interactive visualization and simulation tool that uses real data to help users model meteor impact scenarios, predict consequences, and evaluate potential mitigation strategies. It also includes a built-in AI chatbot named Cartonso to better help the education process and resolve common doubts people could have, enticing their curiosity with its intuitive and simple interface, and inspiring them to look for more; not only building a creative educational branch to start-up future engineers and scientists, but helping already working scientists to evaluate procedures and simulate real-life cases.
 
-Currently, two official plugins are available:
+# NOTE
+To run successfully by cloning the user must
+Run in powershell:
+- npm install
+- npm run dev
+Run in bash:
+- node cartonso.js
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
-
-## React Compiler
-
-The React Compiler is not enabled on this template. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+Thats it!
