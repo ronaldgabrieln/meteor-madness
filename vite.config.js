@@ -11,7 +11,12 @@ export default defineConfig({
         main: resolve(__dirname, 'index.html'),
         simulation: resolve(__dirname, 'simulation.html'),
         datasets: resolve(__dirname, 'useddatasets.html'),
-        defend: resolve(__dirname, 'defenderSlide/defendFirst.html')
+        defend: resolve(__dirname, 'defenderSlide/defendFirst.html'),
+        selector: resolve(__dirname, 'defenderSlide/selectorDefender.html'),
+        gravity: resolve(__dirname, 'defenderSlide/gravityTractor.html'),
+        kinetic: resolve(__dirname, 'defenderSlide/kineticImpactor.html'),
+        nuclear: resolve(__dirname, 'defenderSlide/nuclearExplosion.html'),
+
       }
     }
   }
