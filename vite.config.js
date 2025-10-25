@@ -8,7 +8,7 @@ export default defineConfig({
   build: {
     rollupOptions: {
       input: {
-        main: resolve(__dirname, 'claude.html'),
+        main: resolve(__dirname, 'index.html'),
         simulation: resolve(__dirname, 'simulation.html'),
         datasets: resolve(__dirname, 'useddatasets.html'),
         defend: resolve(__dirname, 'defenderSlide/defendFirst.html')
